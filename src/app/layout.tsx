@@ -6,8 +6,8 @@ import { Toaster } from "@/components/ui/toaster"; // Import Toaster
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' }); // Use Inter
 
 export const metadata: Metadata = {
-  title: 'FamilySafe AI',
-  description: 'Herramienta de evaluación y prevención de riesgos de violencia familiar impulsada por IA.', // Translated description
+  title: 'Fam Security', // Updated title
+  description: 'Herramienta de evaluación y prevención de riesgos de violencia familiar impulsada por IA.', // Description remains relevant
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={inter.variable}> {/* Changed lang to "es" and removed extra whitespace */}
+    <html lang="es" className={inter.variable}> {/* Changed lang to "es" */}
       <body className={`font-sans antialiased`}> {/* Apply font */}
         {children}
         <Toaster /> {/* Add Toaster component here */}

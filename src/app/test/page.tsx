@@ -333,7 +333,7 @@ export default function TestPage() {
         </Card>
       </main>
        <footer className="text-center py-4 text-sm text-muted-foreground">
-         FamilySafe AI - Prevención a través de la Conciencia
+         Fam Security - Prevención a través de la Conciencia {/* Updated App Name */}
        </footer>
     </div>
   );

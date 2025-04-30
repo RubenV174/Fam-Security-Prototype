@@ -4,75 +4,49 @@ interface LogoProps extends React.SVGProps<SVGSVGElement> {
   // Add any specific props if needed, e.g., size variants
 }
 
-// Colors adjusted slightly for better harmony with the theme
-// Using theme primary blue, and a warm orange/red
-const primaryColor = 'hsl(var(--primary))'; // Blue
-const secondaryColor = '#F97316'; // Warm Orange (Tailwind orange-500 equivalent) - Approximation
+const primaryColor = 'hsl(var(--primary))'; // Blue from theme
+const foregroundColor = 'hsl(var(--foreground))'; // Text color from theme
 
 const Logo: FC<LogoProps> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 180 40" // Adjusted viewBox for text inclusion
-      width="144" // Default width, can be overridden via props
-      height="32" // Default height, can be overridden via props
+      viewBox="0 0 160 40" // Adjusted viewBox
+      width="128" // Default width
+      height="32"  // Default height
       {...props}
     >
-      {/* Icon Group */}
-      <g transform="translate(0, 0) scale(0.7)">
-        {/* Smaller Inner Circle (Child) */}
-        <circle cx="30" cy="38" r="8" fill={primaryColor} />
-
-        {/* Left Arc + Top Circle (Orange/Red) */}
+      {/* Icon: Stylized Shield/House */}
+      <g transform="translate(0, 4) scale(0.8)">
         <path
-          d="M10 15 A20 20 0 0 1 30 45 A20 20 0 0 1 50 15" // Adjusted path for smoother curve and connection
-          stroke={secondaryColor}
-          strokeWidth="6"
-          fill="none"
-          strokeLinecap="round"
+          d="M25 2 C12 2 2 12 2 25 S12 48 25 48 S48 38 48 25 S38 2 25 2 Z M25 6 C35 6 44 14 44 25 C44 30 41 35 37 39 L25 27 L13 39 C9 35 6 30 6 25 C6 14 15 6 25 6 Z M25 30 L35 40 C32 42 28 44 25 44 S18 42 15 40 L25 30 Z"
+          fill={primaryColor}
         />
-        <circle cx="10" cy="15" r="10" fill={secondaryColor} />
-
-         {/* Right Arc + Top Circle (Blue) */}
-         {/* Mirrored path - needs adjustment */}
+        {/* Simple house shape inside */}
          <path
-           d="M50 15 A20 20 0 0 1 70 15" // This is incorrect - Needs proper arc definition
-           transform="scale(-1, 1) translate(-100, 0)" // Simplified mirroring attempt - better to redefine path
-           stroke={primaryColor}
-           strokeWidth="6"
-           fill="none"
-           strokeLinecap="round"
-          />
-         {/* Corrected Right Arc definition */}
-         <path
-            d="M90 15 A20 20 0 0 0 70 45 A20 20 0 0 0 50 15" // Correct arc definition for right side
-            stroke={primaryColor}
-            strokeWidth="6"
-            fill="none"
-            strokeLinecap="round"
-          />
-        <circle cx="90" cy="15" r="10" fill={primaryColor} />
+           d="M25 15 L18 22 V 30 H 32 V 22 L25 15 Z"
+           fill="hsl(var(--background))" // Use background color for contrast
+         />
       </g>
 
-      {/* Text Group - Adjusted position */}
-      <g transform="translate(75, 0)">
+      {/* Text: Fam Security */}
+      <g transform="translate(45, 0)">
         <text
-          x="10" // Positioned next to the icon
-          y="25" // Vertically centered approximately
+          x="10"
+          y="26" // Adjusted y for vertical alignment
           fontSize="24"
           fontWeight="bold"
           fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-          fill="hsl(var(--foreground))"
-          dominantBaseline="middle" // Better vertical alignment
+          fill={foregroundColor} // Use theme foreground color
+          dominantBaseline="middle"
         >
-          FamilySafe
+          Fam
           <tspan
-            fontSize="20" // Smaller font size for "AI"
-            fontWeight="normal" // Lighter weight for "AI"
-            fill="hsl(var(--primary))" // Use primary color for "AI"
-            dx="5" // Add small space before AI
+            fontWeight="normal" // Slightly lighter weight for "Security"
+            fill={foregroundColor} // Keep same color or use primary
+            dx="3" // Space before Security
           >
-            AI
+            Security
           </tspan>
         </text>
       </g>

@@ -13,7 +13,7 @@ export default function HomePage() {
         <ShieldCheck className="h-20 w-20 text-primary mb-6 animate-bounce" /> {/* Animated Icon */}
 
         <h2 className="text-4xl font-extrabold tracking-tight mb-4 text-foreground sm:text-5xl md:text-6xl animate-fadeIn">
-          Bienvenido a <span className="text-primary">FamilySafe AI</span>
+          Bienvenido a <span className="text-primary">Fam Security</span> {/* Updated App Name */}
         </h2>
         <p className="max-w-2xl text-lg text-muted-foreground mb-8 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
           Comprende mejor la dinámica familiar y toma medidas hacia un entorno más seguro y saludable. Nuestra evaluación intuitiva ayuda a identificar riesgos potenciales.
@@ -44,7 +44,7 @@ export default function HomePage() {
 
       </main>
       <footer className="text-center py-6 text-sm text-muted-foreground">
-         FamilySafe AI - Creando conciencia para familias más seguras.
+         Fam Security - Creando conciencia para familias más seguras. {/* Updated App Name */}
       </footer>
     </div>
   );
