@@ -8,52 +8,31 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Loader2, ArrowRight, Image as ImageIcon } from 'lucide-react'; // Added ImageIcon
+import { AlertCircle, Loader2, ArrowRight, ArrowLeft, Image as ImageIcon } from 'lucide-react'; // Added ArrowLeft
 import Header from '@/components/Header';
 import { generateRiskAssessmentReportAction } from '@/lib/actions';
 import type { GenerateRiskAssessmentReportOutput } from '@/ai/flows/generate-risk-assessment-report';
-import Image from 'next/image'; // Import next/image
+import Image from 'next/image';
 
-// Animated SVG Placeholders (Replace with actual animated SVGs or components)
-const AnimatedIllustration = ({ id }: { id: number }) => {
-  // Example simple animation (pulse) - replace with more complex animations
-  const pulseStyle = { animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' };
+// Simplified Animated Placeholder for Illustrations (Can be replaced with actual SVGs later)
+const AnimatedIllustrationPlaceholder = ({ id }: { id: number }) => {
+  // Basic representation, enhance with actual graphics later
   return (
-    <div className="w-full h-48 bg-muted rounded-md flex items-center justify-center text-muted-foreground overflow-hidden">
-      <svg width="100" height="100" viewBox="0 0 100 100" style={pulseStyle}>
-        {/* Basic shapes representing concepts - replace with intuitive drawings */}
-        {id === 1 && <rect x="20" y="30" width="60" height="40" rx="5" fill="hsl(var(--primary))" opacity="0.7" />}
-        {id === 2 && <>
-            <path d="M30 30 L70 70 M70 30 L30 70" stroke="hsl(var(--destructive))" strokeWidth="5" opacity="0.7" />
-            <path d="M50 20 L50 80" stroke="hsl(var(--primary))" strokeWidth="5" opacity="0.7" />
-        </>}
-        {id === 3 && <circle cx="50" cy="50" r="25" fill="hsl(var(--destructive))" opacity="0.5" />}
-        {id === 4 && <path d="M20 50 Q50 20 80 50 T80 50" stroke="hsl(var(--chart-2))" strokeWidth="5" fill="none" opacity="0.7" />}
-        {id === 5 && <rect x="30" y="30" width="40" height="40" rx="20" stroke="hsl(var(--primary))" strokeWidth="5" fill="none" opacity="0.7" />}
-         {/* Placeholder for image interpretation */}
-        {(id === 6 || id === 7) && <ImageIcon className="w-16 h-16 text-primary" />}
-      </svg>
-       <style jsx>{`
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 0.7;
-          }
-          50% {
-            opacity: 0.3;
-          }
-        }
-      `}</style>
+    <div className="w-full aspect-video bg-muted/50 rounded-lg flex items-center justify-center text-primary/50 p-4">
+       <ImageIcon className="w-16 h-16 sm:w-24 sm:h-24" />
+       {/* You could add subtle animation class here like 'animate-pulse' if desired */}
     </div>
   );
 };
 
+
 interface Question {
   id: number;
-  type: 'multiple-choice' | 'image-interpretation'; // Add question type
+  type: 'multiple-choice' | 'image-interpretation';
   text: string;
-  options?: { value: string; label: string }[]; // Optional for image interpretation
-  imageSrc?: string; // For image interpretation questions
-  illustration: React.ReactNode;
+  options?: { value: string; label: string }[];
+  imageSrc?: string;
+  illustration: React.ReactNode; // Keep illustration for non-image questions
 }
 
 const questions: Question[] = [
@@ -67,7 +46,7 @@ const questions: Question[] = [
       { value: "a_veces", label: "A veces" },
       { value: "a_menudo", label: "A menudo" },
     ],
-    illustration: <AnimatedIllustration id={1} />,
+     illustration: <AnimatedIllustrationPlaceholder id={1} />,
   },
   {
     id: 2,
@@ -77,73 +56,72 @@ const questions: Question[] = [
       { value: "discusion_calmada", label: "Discusión calmada" },
       { value: "voces_altas", label: "Voces altas" },
       { value: "evitacion", label: "Evitación / Ignorarlo" },
-      { value: "discusiones_fisicas", label: "Discusiones físicas / Agresión" },
+      { value: "discusiones_intensas", label: "Discusiones intensas / Gritos" }, // Refined option
     ],
-    illustration: <AnimatedIllustration id={2} />,
+    illustration: <AnimatedIllustrationPlaceholder id={2} />,
   },
   {
     id: 3,
     type: 'multiple-choice',
-    text: "¿Alguna vez sientes miedo de alguien en tu hogar?",
+    text: "¿Alguna vez sientes miedo de la reacción de alguien en tu hogar?", // Rephrased slightly
     options: [
       { value: "nunca", label: "Nunca" },
       { value: "raramente", label: "Raramente" },
       { value: "a_veces", label: "A veces" },
       { value: "a_menudo", label: "A menudo" },
     ],
-    illustration: <AnimatedIllustration id={3} />,
+    illustration: <AnimatedIllustrationPlaceholder id={3} />,
   },
    {
     id: 4,
     type: 'multiple-choice',
-    text: "¿Qué tan apoyado/a te sientes por tu familia?",
+    text: "¿Qué tan apoyado/a te sientes por las personas con las que vives?", // Rephrased
     options: [
       { value: "muy_apoyado", label: "Muy apoyado/a" },
       { value: "algo_apoyado", label: "Algo apoyado/a" },
-      { value: "no_muy_apoyado", label: "No muy apoyado/a" },
+      { value: "poco_apoyado", label: "Poco apoyado/a" }, // Changed label
       { value: "nada_apoyado", label: "Nada apoyado/a" },
     ],
-    illustration: <AnimatedIllustration id={4} />,
+    illustration: <AnimatedIllustrationPlaceholder id={4} />,
   },
    {
     id: 5,
     type: 'multiple-choice',
-    text: "¿Ha habido casos de comportamiento controlador (p. ej., limitar contacto con amigos/familia, controlar finanzas)?",
+    text: "¿Has notado comportamientos controladores (p. ej., revisar tu teléfono, decirte qué vestir, limitar tus salidas)?", // Rephrased with examples
     options: [
       { value: "nunca", label: "Nunca" },
       { value: "raramente", label: "Raramente" },
       { value: "a_veces", label: "A veces" },
       { value: "a_menudo", label: "A menudo" },
     ],
-    illustration: <AnimatedIllustration id={5} />,
+    illustration: <AnimatedIllustrationPlaceholder id={5} />,
   },
-  // --- New Image Interpretation Questions ---
   {
       id: 6,
       type: 'image-interpretation',
       text: "¿Qué emoción o situación te sugiere esta imagen?",
-      // Use a placeholder image URL from picsum.photos
-      imageSrc: 'https://picsum.photos/seed/familysafe1/400/300',
+      imageSrc: 'https://picsum.photos/seed/familysafe_calm/400/300', // Changed seed for variety
       options: [
-          { value: 'felicidad_union', label: 'Felicidad / Unión' },
+          { value: 'armonia_paz', label: 'Armonía / Paz' }, // Refined labels
           { value: 'tension_conflicto', label: 'Tensión / Conflicto' },
-          { value: 'tristeza_aislamiento', label: 'Tristeza / Aislamiento' },
-          { value: 'neutralidad', label: 'Neutralidad / Indiferencia' },
+          { value: 'tristeza_soledad', label: 'Tristeza / Soledad' },
+          { value: 'indiferencia', label: 'Indiferencia' },
       ],
-      illustration: <AnimatedIllustration id={6} />, // Generic placeholder icon
+      // No illustration needed if imageSrc is present
+      illustration: null,
   },
   {
       id: 7,
       type: 'image-interpretation',
       text: "Observa la imagen. ¿Qué dinámica familiar representa mejor para ti?",
-      imageSrc: 'https://picsum.photos/seed/familysafe2/400/300',
+      imageSrc: 'https://picsum.photos/seed/familysafe_distant/400/300', // Changed seed
       options: [
-          { value: 'apoyo_mutuo', label: 'Apoyo mutuo y comunicación' },
-          { value: 'distancia_emocional', label: 'Distancia emocional' },
-          { value: 'control_desigualdad', label: 'Control o desigualdad' },
-          { value: 'caos_desorden', label: 'Caos o desorden' },
+          { value: 'conexion_apoyo', label: 'Conexión y apoyo' }, // Refined labels
+          { value: 'distanciamiento', label: 'Distanciamiento' },
+          { value: 'jerarquia_control', label: 'Jerarquía / Control' },
+          { value: 'caos_confusion', label: 'Caos / Confusión' },
       ],
-      illustration: <AnimatedIllustration id={7} />, // Generic placeholder icon
+       illustration: null,
   },
 ];
 
@@ -160,7 +138,7 @@ export default function TestPage() {
 
   const handleOptionChange = useCallback((value: string) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
-     setError(null); // Clear error when an option is selected
+     setError(null);
   }, [currentQuestion]);
 
   const handleNext = useCallback(() => {
@@ -169,7 +147,7 @@ export default function TestPage() {
          setCurrentQuestionIndex((prev) => prev + 1);
        }
     } else {
-       setError("Por favor, selecciona una opción antes de continuar.");
+       setError("Por favor, selecciona una opción para continuar.");
     }
   }, [currentQuestionIndex, answers, currentQuestion]);
 
@@ -177,14 +155,12 @@ export default function TestPage() {
   const handlePrevious = useCallback(() => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex((prev) => prev - 1);
-      setError(null); // Clear error when going back
+      setError(null);
     }
   }, [currentQuestionIndex]);
 
   const handleSubmit = useCallback(async () => {
-    // Final check if all questions answered
     if (Object.keys(answers).length !== questions.length) {
-        // Find first unanswered question
         const firstUnanswered = questions.find(q => !answers[q.id]);
         if (firstUnanswered) {
             setCurrentQuestionIndex(questions.findIndex(q => q.id === firstUnanswered.id));
@@ -202,7 +178,7 @@ export default function TestPage() {
          id: q.id,
          question: q.text,
          type: q.type,
-         answer: answers[q.id] || 'No respondido' // 'Not Answered' in Spanish
+         answer: answers[q.id] || 'No respondido'
        }))
     );
 
@@ -213,66 +189,65 @@ export default function TestPage() {
 
         console.log("Resultado de generación de informe:", result);
 
-        // Check for error message within the report string itself
-        if (result && result.report && result.report.startsWith('Error generando informe:')) {
-          throw new Error(result.report); // Throw error if action returned an error message
+        if (result && result.report && result.report.startsWith('Error')) { // Broader error check
+          throw new Error(result.report);
         }
 
-        if (result && result.report && result.resources) {
+        if (result && result.report && result.resources !== undefined) { // Check resource exists, even if empty string
            localStorage.setItem('riskAssessmentResult', JSON.stringify(result));
-           router.push('/results'); // Navigate to results page
+           router.push('/results');
         } else {
-           // Handle cases where the AI might return incomplete data, even if no explicit error was thrown by the action
-           let errorMsg = 'Error al generar el informe.';
+           let errorMsg = 'Respuesta inesperada al generar el informe.';
            if (!result?.report) errorMsg += ' Falta el contenido del informe.';
-           if (!result?.resources) errorMsg += ' Faltan los recursos.';
-           throw new Error(errorMsg + ' Respuesta inesperada de la IA.');
+           if (result?.resources === undefined) errorMsg += ' Faltan los recursos.';
+           throw new Error(errorMsg);
         }
 
     } catch (err: any) {
         console.error("Error al enviar el test:", err);
-        setError(err.message || "Ocurrió un error inesperado al generar el informe. Por favor, inténtalo de nuevo más tarde.");
-        setIsSubmitting(false); // Allow retry on error
+        setError(err.message || "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
+        setIsSubmitting(false);
     } finally {
-        // Only set isLoading to false, isSubmitting remains true if navigation occurs
         setIsLoading(false);
+        // isSubmitting remains true on success to prevent double clicks during navigation
     }
   }, [answers, router]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background to-primary/10 dark:from-background dark:via-background dark:to-primary/5">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
-        <Card className="w-full max-w-lg shadow-lg animate-fadeIn transition-all duration-500">
-          <CardHeader>
-            <Progress value={progressValue} className="mb-4" />
-            <CardTitle className="text-xl font-semibold text-center mb-2">Pregunta {currentQuestion.id} de {questions.length}</CardTitle>
-             {/* Illustration and Question Text Section */}
-             <div className="mb-4 p-4 bg-muted/50 rounded-lg flex flex-col items-center">
-                 {/* Display image if it's an image interpretation question */}
+        {/* Wider card on larger screens */}
+        <Card className="w-full max-w-md md:max-w-lg shadow-xl rounded-xl animate-fadeIn border border-border/50">
+          <CardHeader className="p-4 sm:p-6">
+            <Progress value={progressValue} className="mb-4 h-2" /> {/* Thinner progress bar */}
+            <CardTitle className="text-lg sm:text-xl font-semibold text-center mb-1">Pregunta {currentQuestion.id} de {questions.length}</CardTitle>
+             {/* Question Area */}
+             <div className="my-4 p-4 bg-muted/40 rounded-lg">
+                 {/* Image for interpretation questions */}
                  {currentQuestion.type === 'image-interpretation' && currentQuestion.imageSrc && (
-                    <div className="mb-4 rounded-lg overflow-hidden border">
+                    <div className="mb-4 rounded-lg overflow-hidden border shadow-sm aspect-video relative">
                          <Image
                              src={currentQuestion.imageSrc}
                              alt={`Imagen para la pregunta ${currentQuestion.id}`}
-                             width={400}
-                             height={300}
-                             className="object-cover"
-                             priority={currentQuestionIndex === 0} // Prioritize loading first image
-                             unoptimized // Use if picsum causes issues with Next/Image optimization
+                             fill // Use fill for responsive sizing within the container
+                             style={{ objectFit: 'cover' }} // Ensure image covers the area
+                             priority={currentQuestionIndex < 2} // Prioritize first few images
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Optimize image loading
+                             unoptimized={false} // Let Next.js optimize
                          />
                      </div>
                  )}
-                 {/* Display illustration if not an image question or as fallback */}
-                 {currentQuestion.type !== 'image-interpretation' && (
-                     <div className="mt-4 aspect-video overflow-hidden rounded-lg flex items-center justify-center">
+                 {/* Illustration Placeholder for other question types */}
+                 {currentQuestion.type !== 'image-interpretation' && currentQuestion.illustration && (
+                     <div className="mb-4">
                          {currentQuestion.illustration}
                      </div>
                  )}
-                 <CardDescription className="text-center text-foreground mt-4">{currentQuestion.text}</CardDescription>
+                 <CardDescription className="text-center text-base sm:text-lg text-foreground font-medium">{currentQuestion.text}</CardDescription>
              </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 sm:p-6 pt-0">
             {error && (
               <Alert variant="destructive" className="mb-4 animate-shake">
                 <AlertCircle className="h-4 w-4" />
@@ -280,50 +255,62 @@ export default function TestPage() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            {/* Options Section */}
+            {/* Options */}
              {currentQuestion.options && (
                  <RadioGroup
-                    key={currentQuestion.id} // Add key to force re-render on question change
+                    key={currentQuestion.id}
                     value={answers[currentQuestion.id] || ""}
                     onValueChange={handleOptionChange}
                     className="space-y-3"
                  >
                     {currentQuestion.options.map((option) => (
-                      <div key={option.value} className={`flex items-center space-x-3 p-3 border rounded-md transition-all duration-200 cursor-pointer ${answers[currentQuestion.id] === option.value ? 'bg-primary/10 border-primary ring-1 ring-primary' : 'hover:bg-accent'}`}>
-                        <RadioGroupItem value={option.value} id={`${currentQuestion.id}-${option.value}`} />
-                        <Label htmlFor={`${currentQuestion.id}-${option.value}`} className="flex-1 cursor-pointer">{option.label}</Label>
-                      </div>
+                      <Label
+                        key={option.value}
+                        htmlFor={`${currentQuestion.id}-${option.value}`}
+                        className={cn(
+                            "flex items-center space-x-3 p-3 sm:p-4 border rounded-lg transition-all duration-200 cursor-pointer hover:bg-accent hover:border-primary/50",
+                            answers[currentQuestion.id] === option.value
+                              ? 'bg-primary/10 border-primary ring-2 ring-primary/70'
+                              : 'border-border'
+                        )}
+                        >
+                        <RadioGroupItem value={option.value} id={`${currentQuestion.id}-${option.value}`} className="h-5 w-5 border-muted-foreground" />
+                        <span className="flex-1 text-sm sm:text-base">{option.label}</span>
+                      </Label>
                     ))}
                   </RadioGroup>
              )}
-
           </CardContent>
-          <CardFooter className="flex justify-between pt-4 border-t">
+          <CardFooter className="flex justify-between p-4 sm:p-6 border-t border-border/50">
              <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentQuestionIndex === 0 || isLoading}
+                aria-label="Pregunta anterior"
              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
                 Anterior
              </Button>
              {currentQuestionIndex === questions.length - 1 ? (
                <Button
                  onClick={handleSubmit}
                  disabled={!answers[currentQuestion.id] || isLoading || isSubmitting}
+                 aria-label="Enviar respuestas y ver informe"
                >
                  {isLoading ? (
                    <>
                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                     Generando Informe...
+                     Generando...
                    </>
                  ) : (
-                    'Enviar y Ver Informe'
+                    'Ver Informe' // Simplified text
                  )}
                </Button>
              ) : (
                <Button
                  onClick={handleNext}
                  disabled={!answers[currentQuestion.id] || isLoading}
+                 aria-label="Siguiente pregunta"
                >
                  Siguiente
                  <ArrowRight className="ml-2 h-4 w-4" />
@@ -332,38 +319,9 @@ export default function TestPage() {
           </CardFooter>
         </Card>
       </main>
-       <footer className="text-center py-4 text-sm text-muted-foreground">
-         Fam Security - Prevención a través de la Conciencia {/* Updated App Name */}
+       <footer className="text-center py-6 text-xs sm:text-sm text-muted-foreground">
+         Fam Security - Un paso hacia el bienestar familiar
        </footer>
     </div>
   );
-}
-
-// Simple shake animation for error
-const styles = `
-@keyframes shake {
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
-.animate-shake {
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-}
-`;
-
-// Inject styles into the head
-if (typeof window !== 'undefined') {
-  const styleSheet = document.createElement("style");
-  styleSheet.type = "text/css";
-  styleSheet.innerText = styles;
-  document.head.appendChild(styleSheet);
 }

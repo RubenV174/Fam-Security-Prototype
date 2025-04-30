@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google'; // Using Inter for a more iOS-like feel
+import { Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"; // Import Toaster
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' }); // Use Inter
+// Setup Inter font with CSS variable
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans', // Define the CSS variable name
+});
 
 export const metadata: Metadata = {
-  title: 'Fam Security', // Updated title
-  description: 'Herramienta de evaluación y prevención de riesgos de violencia familiar impulsada por IA.', // Description remains relevant
+  title: 'Fam Security',
+  description: 'Herramienta de evaluación y prevención de riesgos de violencia familiar impulsada por IA.',
 };
 
 export default function RootLayout({
@@ -16,10 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={inter.variable}> {/* Changed lang to "es" */}
-      <body className={`font-sans antialiased`}> {/* Apply font */}
+    // Apply the font variable class to html tag and set lang to "es"
+    <html lang="es" className={inter.variable}>
+      {/* Apply the font-sans utility class to body */}
+      <body className="font-sans antialiased">
         {children}
-        <Toaster /> {/* Add Toaster component here */}
+        <Toaster />
       </body>
     </html>
   );

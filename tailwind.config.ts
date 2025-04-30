@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-const { fontFamily } = require("tailwindcss/defaultTheme") // Import fontFamily
+const { fontFamily } = require("tailwindcss/defaultTheme"); // Import fontFamily
 
 export default {
     darkMode: ["class"],
@@ -10,7 +10,7 @@ export default {
   ],
   theme: {
   	extend: {
-        fontFamily: { // Add sans font family
+        fontFamily: { // Add sans font family using the CSS variable
             sans: ["var(--font-sans)", ...fontFamily.sans],
         },
   		colors: {
@@ -65,34 +65,30 @@ export default {
   				ring: 'hsl(var(--sidebar-ring))'
   			}
   		},
-  		borderRadius: { // Updated border radius
-  			lg: 'var(--radius)', // 0.75rem
-  			md: 'calc(var(--radius) - 4px)', // 0.5rem
-  			sm: 'calc(var(--radius) - 8px)' // 0.25rem
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 4px)',
+  			sm: 'calc(var(--radius) - 8px)'
   		},
   		keyframes: {
-            // Added fadeIn animation
             "fadeIn": {
-                "0%": { opacity: "0" },
-                "100%": { opacity: "1" },
+                "from": { opacity: "0" },
+                "to": { opacity: "1" },
             },
-            // Added slideInUp animation
             "slideInUp": {
-                "0%": { transform: "translateY(20px)", opacity: "0" },
-                "100%": { transform: "translateY(0)", opacity: "1" },
+                "from": { transform: "translateY(20px)", opacity: "0" },
+                "to": { transform: "translateY(0)", opacity: "1" },
             },
-            // Added bounce animation
             "bounce": {
                 "0%, 100%": {
                     transform: "translateY(-15%)",
                     animationTimingFunction: "cubic-bezier(0.8,0,1,1)",
                 },
                 "50%": {
-                    transform: "none",
+                    transform: "translateY(0)", // Changed from none to 0 for consistency
                     animationTimingFunction: "cubic-bezier(0,0,0.2,1)",
                 },
             },
-             // Added shake animation
             "shake": {
                 "10%, 90%": { transform: "translate3d(-1px, 0, 0)" },
                 "20%, 80%": { transform: "translate3d(2px, 0, 0)" },
@@ -109,7 +105,6 @@ export default {
   			}
   		},
   		animation: {
-             // Added animations
             "fadeIn": "fadeIn 0.5s ease-in-out",
             "slideInUp": "slideInUp 0.5s ease-out",
             "bounce": "bounce 1.5s infinite",

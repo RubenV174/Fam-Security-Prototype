@@ -2,80 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-
 @layer base {
   :root {
-    --background: 240 10% 97%; /* Very light grey */
-    --foreground: 240 10% 3.9%; /* Dark grey */
+    --background: 240 10% 98%; /* Slightly warmer light grey */
+    --foreground: 240 8% 10%; /* Darker grey for better contrast */
     --card: 0 0% 100%; /* White */
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 240 8% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 211 100% 50%; /* Blue (#007AFF) */
+    --popover-foreground: 240 8% 10%;
+    --primary: 211 100% 50%; /* iOS Blue */
     --primary-foreground: 0 0% 100%; /* White */
-    --secondary: 240 4.8% 95.9%; /* Lighter grey */
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%; /* Lighter grey for hover */
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --secondary: 240 5% 96%; /* Lighter grey */
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 240 5% 94%; /* Slightly darker grey for hover */
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 84.2% 60.2%; /* Standard destructive red */
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%; /* Light grey border */
-    --input: 240 5.9% 90%;
+    --border: 240 6% 90%; /* Light grey border */
+    --input: 240 6% 90%;
     --ring: 211 100% 50%; /* Blue for focus rings */
     --chart-1: 211 100% 50%; /* Blue */
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
+    --chart-2: 173 58% 45%; /* Slightly adjusted green */
+    --chart-3: 197 37% 30%; /* Slightly adjusted teal */
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.75rem; /* Slightly larger radius for iOS feel */
-    --sidebar-background: 240 10% 97%; /* Match background */
-    --sidebar-foreground: 240 10% 3.9%; /* Match foreground */
-    --sidebar-primary: 211 100% 50%; /* Match primary */
-    --sidebar-primary-foreground: 0 0% 100%; /* Match primary-foreground */
-    --sidebar-accent: 240 4.8% 95.9%; /* Match accent */
-    --sidebar-accent-foreground: 240 5.9% 10%; /* Match accent-foreground */
-    --sidebar-border: 240 5.9% 90%; /* Match border */
-    --sidebar-ring: 211 100% 50%; /* Match ring */
+    --radius: 0.75rem; /* iOS like rounded corners */
+    --sidebar-background: 240 10% 98%;
+    --sidebar-foreground: 240 8% 10%;
+    --sidebar-primary: 211 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 5% 94%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 240 6% 90%;
+    --sidebar-ring: 211 100% 50%;
   }
 
   .dark {
-    /* Define dark mode variables if needed, maintaining iOS style */
+    /* Refined Dark Mode Variables */
     --background: 240 6% 10%; /* Dark grey */
     --foreground: 0 0% 98%; /* Light grey/white */
-    --card: 240 6% 12%; /* Slightly lighter dark grey */
+    --card: 240 5% 11%; /* Slightly lighter dark grey */
     --card-foreground: 0 0% 98%;
     --popover: 240 6% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 211 100% 50%; /* Blue */
+    --primary: 211 100% 50%; /* iOS Blue */
     --primary-foreground: 0 0% 100%; /* White */
-    --secondary: 240 3.7% 15.9%; /* Darker grey */
+    --secondary: 240 4% 16%; /* Darker grey */
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 240 4% 18%; /* Darker accent for hover */
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 63% 50%; /* Adjusted destructive red for dark */
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
     --ring: 211 100% 50%; /* Blue */
     --chart-1: 211 100% 50%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
+    --chart-2: 173 58% 45%;
+    --chart-3: 197 37% 30%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --sidebar-background: 240 6% 10%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 211 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent: 240 4% 18%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-border: 240 4% 16%;
     --sidebar-ring: 211 100% 50%;
   }
 }
@@ -88,6 +84,8 @@ body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Ensure the font-family defined in tailwind.config.ts is used */
+    @apply font-sans;
   }
 }
 
@@ -96,22 +94,12 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Simple fade-in animation */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Add subtle transition for color changes */
+body, button, input, select, textarea, .bg-background, .bg-card, .bg-popover, .bg-primary, .bg-secondary, .bg-muted, .bg-accent, .bg-destructive, .border {
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Simple slide-in animation (example) */
-@keyframes slideInUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.animate-slideInUp {
-  animation: slideInUp 0.5s ease-out;
+/* Custom focus styling for better visibility */
+*:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
 }
