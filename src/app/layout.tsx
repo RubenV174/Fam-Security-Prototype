@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' }); // Use Int
 
 export const metadata: Metadata = {
   title: 'FamilySafe AI',
-  description: 'AI-powered family violence risk assessment and prevention tool.',
+  description: 'Herramienta de evaluación y prevención de riesgos de violencia familiar impulsada por IA.', // Translated description
 };
 
 export default function RootLayout({
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}> {/* Add font variable */}
+    <html lang="es" className={inter.variable}> {/* Changed lang to "es" and removed extra whitespace */}
       <body className={`font-sans antialiased`}> {/* Apply font */}
         {children}
         <Toaster /> {/* Add Toaster component here */}

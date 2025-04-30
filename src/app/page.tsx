@@ -13,29 +13,29 @@ export default function HomePage() {
         <ShieldCheck className="h-20 w-20 text-primary mb-6 animate-bounce" /> {/* Animated Icon */}
 
         <h2 className="text-4xl font-extrabold tracking-tight mb-4 text-foreground sm:text-5xl md:text-6xl animate-fadeIn">
-          Welcome to <span className="text-primary">FamilySafe AI</span>
+          Bienvenido a <span className="text-primary">FamilySafe AI</span>
         </h2>
         <p className="max-w-2xl text-lg text-muted-foreground mb-8 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-          Understand your family dynamics better and take steps towards a safer, healthier environment. Our intuitive assessment helps identify potential risks.
+          Comprende mejor la dinámica familiar y toma medidas hacia un entorno más seguro y saludable. Nuestra evaluación intuitiva ayuda a identificar riesgos potenciales.
         </p>
 
         <Card className="w-full max-w-md shadow-xl animate-fadeIn" style={{ animationDelay: '0.4s' }}>
           <CardHeader className="items-center">
              <HeartHandshake className="h-12 w-12 text-primary mb-3" />
-            <CardTitle className="text-2xl">Start Your Assessment</CardTitle>
+            <CardTitle className="text-2xl">Comienza tu Evaluación</CardTitle>
             <CardDescription>
-              Engage with our short, gamified test to gain valuable insights. It's confidential and designed to be supportive.
+              Participa en nuestro breve test gamificado para obtener información valiosa. Es confidencial y está diseñado para ser de apoyo.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-               Click below to begin the interactive assessment. It takes only a few minutes.
+               Haz clic abajo para comenzar la evaluación interactiva. Solo toma unos minutos.
             </p>
           </CardContent>
           <CardFooter className="justify-center pt-4">
             <Link href="/test" passHref>
               <Button size="lg">
-                Start Test
+                Iniciar Test
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
@@ -44,7 +44,7 @@ export default function HomePage() {
 
       </main>
       <footer className="text-center py-6 text-sm text-muted-foreground">
-         FamilySafe AI - Building awareness for safer families.
+         FamilySafe AI - Creando conciencia para familias más seguras.
       </footer>
     </div>
   );

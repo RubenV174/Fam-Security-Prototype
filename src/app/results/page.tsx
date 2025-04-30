@@ -13,25 +13,26 @@ import Header from '@/components/Header';
 import type { GenerateRiskAssessmentReportOutput } from '@/ai/flows/generate-risk-assessment-report';
 
 // Basic sentiment analysis (placeholder - replace with more robust analysis if needed)
-const analyzeSentiment = (report: string): { positive: number; negative: number; neutral: number } => {
-  const positiveWords = ['good', 'safe', 'supported', 'positive', 'healthy', 'calm'];
-  const negativeWords = ['risk', 'concern', 'unsafe', 'tense', 'afraid', 'controlling', 'argument', 'violence', 'danger'];
+// NOTE: This basic analysis might not be accurate for Spanish. Consider a more sophisticated approach.
+const analyzeSentiment = (report: string): { positivo: number; negativo: number; neutral: number } => {
+  const positiveWords = ['bien', 'seguro', 'apoyado', 'positivo', 'saludable', 'calma', 'tranquilo'];
+  const negativeWords = ['riesgo', 'preocupación', 'inseguro', 'tenso', 'miedo', 'controlador', 'discusión', 'violencia', 'peligro'];
 
-  const words = report.toLowerCase().split(/\s+/);
-  let positive = 0;
-  let negative = 0;
+  const words = report.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/); // Basic normalization for Spanish
+  let positivo = 0;
+  let negativo = 0;
 
   words.forEach(word => {
-    if (positiveWords.includes(word)) positive++;
-    if (negativeWords.includes(word)) negative++;
+    if (positiveWords.includes(word)) positivo++;
+    if (negativeWords.includes(word)) negativo++;
   });
 
   // Basic scaling for demo purposes
-  const total = positive + negative || 1;
+  const total = positivo + negativo || 1;
   return {
-    positive: Math.min(100, Math.round((positive / total) * 100)),
-    negative: Math.min(100, Math.round((negative / total) * 100)),
-    neutral: Math.max(0, 100 - Math.min(100, Math.round((positive / total) * 100)) - Math.min(100, Math.round((negative / total) * 100))),
+    positivo: Math.min(100, Math.round((positivo / total) * 100)),
+    negativo: Math.min(100, Math.round((negativo / total) * 100)),
+    neutral: Math.max(0, 100 - Math.min(100, Math.round((positivo / total) * 100)) - Math.min(100, Math.round((negativo / total) * 100))),
   };
 };
 
@@ -50,14 +51,14 @@ export default function ResultsPage() {
           // Optional: Clear storage after loading
           // localStorage.removeItem('riskAssessmentResult');
         } else {
-          throw new Error('Invalid result format found in storage.');
+          throw new Error('Formato de resultado inválido encontrado en el almacenamiento.');
         }
       } catch (e: any) {
-        console.error("Error parsing result from localStorage:", e);
-        setError(`Failed to load results: ${e.message || 'Invalid data format.'}`);
+        console.error("Error al parsear resultado desde localStorage:", e);
+        setError(`Error al cargar los resultados: ${e.message || 'Formato de datos inválido.'}`);
       }
     } else {
-       setError("No assessment results found. Please complete the test first.");
+       setError("No se encontraron resultados de la evaluación. Por favor, completa el test primero.");
       // Redirect back to test after a delay if no results
        const timer = setTimeout(() => router.push('/test'), 3000);
        return () => clearTimeout(timer);
@@ -68,8 +69,8 @@ export default function ResultsPage() {
     if (!result?.report) return [];
     const sentiment = analyzeSentiment(result.report);
     return [
-      { name: 'Positive Aspects', value: sentiment.positive, fill: 'hsl(var(--chart-2))' }, // Use theme colors
-      { name: 'Areas of Concern', value: sentiment.negative, fill: 'hsl(var(--chart-1))' }, // Use theme colors (adjust as needed)
+      { name: 'Aspectos Positivos', value: sentiment.positivo, fill: 'hsl(var(--chart-2))' }, // Use theme colors
+      { name: 'Áreas de Preocupación', value: sentiment.negativo, fill: 'hsl(var(--chart-1))' }, // Use theme colors (adjust as needed)
       { name: 'Neutral', value: sentiment.neutral, fill: 'hsl(var(--muted))' },
     ];
   }, [result]);
@@ -83,8 +84,12 @@ export default function ResultsPage() {
              .map((item, index) => {
                // Try to detect if it's a URL
                try {
-                 const url = new URL(item);
-                 return { type: 'link', value: url.toString(), key: `${index}-${url.toString()}` };
+                 // Basic check if it looks like a URL before trying new URL()
+                 if (item.startsWith('http://') || item.startsWith('https://')) {
+                   const url = new URL(item);
+                   return { type: 'link', value: url.toString(), key: `${index}-${url.toString()}` };
+                 }
+                 throw new Error('Not a standard URL');
                } catch (_) {
                  // If not a valid URL, treat as text
                  return { type: 'text', value: item, key: `${index}-text` };
@@ -104,7 +109,7 @@ export default function ResultsPage() {
           <main className="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
              <Card className="w-full max-w-lg shadow-lg animate-fadeIn">
                <CardHeader>
-                 <CardTitle className="text-center text-destructive">Error Loading Results</CardTitle>
+                 <CardTitle className="text-center text-destructive">Error al Cargar Resultados</CardTitle>
                </CardHeader>
                <CardContent>
                  <Alert variant="destructive">
@@ -114,7 +119,7 @@ export default function ResultsPage() {
                  </Alert>
                </CardContent>
                <CardFooter className="justify-center pt-4">
-                  <Button onClick={() => router.push('/test')}>Go Back to Test</Button>
+                  <Button onClick={() => router.push('/test')}>Volver al Test</Button>
                </CardFooter>
              </Card>
           </main>
@@ -132,7 +137,7 @@ export default function ResultsPage() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
              </svg>
-             <p className="text-muted-foreground">Loading results...</p>
+             <p className="text-muted-foreground">Cargando resultados...</p>
           </div>
         </main>
        </div>
@@ -145,29 +150,29 @@ export default function ResultsPage() {
        <main className="flex-grow container mx-auto px-4 py-8">
           <Card className="w-full max-w-4xl mx-auto shadow-lg animate-fadeIn mb-8">
              <CardHeader>
-               <CardTitle className="text-2xl font-bold text-center mb-2">Your Risk Assessment Report</CardTitle>
+               <CardTitle className="text-2xl font-bold text-center mb-2">Tu Informe de Evaluación de Riesgo</CardTitle>
                <CardDescription className="text-center text-muted-foreground mb-4">
-                  This report provides insights based on your responses. Remember, this is not a clinical diagnosis.
+                  Este informe proporciona información basada en tus respuestas. Recuerda, esto no es un diagnóstico clínico.
                </CardDescription>
                 <Alert variant="default" className="bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/30 dark:border-blue-700 dark:text-blue-300">
                     <Info className="h-4 w-4 stroke-current" />
-                    <AlertTitle>Important Note</AlertTitle>
+                    <AlertTitle>Nota Importante</AlertTitle>
                     <AlertDescription>
-                    This assessment is a tool for reflection and awareness. If you are in immediate danger or need urgent support, please contact emergency services or a local support hotline. The resources provided below can also offer help.
+                    Esta evaluación es una herramienta para la reflexión y la conciencia. Si estás en peligro inmediato o necesitas apoyo urgente, por favor contacta a los servicios de emergencia o una línea de ayuda local. Los recursos proporcionados a continuación también pueden ofrecer ayuda.
                     </AlertDescription>
                 </Alert>
              </CardHeader>
              <CardContent>
                <Tabs defaultValue="report" className="w-full">
                   <TabsList className="grid w-full grid-cols-3 mb-4">
-                     <TabsTrigger value="report">Report Details</TabsTrigger>
-                     <TabsTrigger value="visualization">Visualization</TabsTrigger>
-                     <TabsTrigger value="resources">Resources</TabsTrigger>
+                     <TabsTrigger value="report">Detalles del Informe</TabsTrigger>
+                     <TabsTrigger value="visualization">Visualización</TabsTrigger>
+                     <TabsTrigger value="resources">Recursos</TabsTrigger>
                   </TabsList>
                   <TabsContent value="report">
                      <Card>
                        <CardHeader>
-                          <CardTitle>Generated Report</CardTitle>
+                          <CardTitle>Informe Generado</CardTitle>
                        </CardHeader>
                        <CardContent>
                           <ScrollArea className="h-72 w-full rounded-md border p-4 whitespace-pre-wrap">
@@ -179,8 +184,8 @@ export default function ResultsPage() {
                   <TabsContent value="visualization">
                       <Card>
                         <CardHeader>
-                           <CardTitle>Sentiment Overview</CardTitle>
-                           <CardDescription>A general overview of themes identified in the report.</CardDescription>
+                           <CardTitle>Resumen General</CardTitle>
+                           <CardDescription>Una visión general de los temas identificados en el informe.</CardDescription>
                         </CardHeader>
                         <CardContent className="h-[300px]">
                            <ResponsiveContainer width="100%" height="100%">
@@ -203,8 +208,8 @@ export default function ResultsPage() {
                    <TabsContent value="resources">
                       <Card>
                         <CardHeader>
-                           <CardTitle>Suggested Resources</CardTitle>
-                           <CardDescription>Here are some resources that might be helpful based on your assessment.</CardDescription>
+                           <CardTitle>Recursos Sugeridos</CardTitle>
+                           <CardDescription>Aquí tienes algunos recursos que podrían ser útiles basados en tu evaluación.</CardDescription>
                         </CardHeader>
                         <CardContent>
                            {resourcesList.length > 0 ? (
@@ -234,7 +239,7 @@ export default function ResultsPage() {
                                ))}
                              </ul>
                            ) : (
-                             <p className="text-muted-foreground italic">No specific resources were identified for you at this time. Consider reaching out to a local support center for general information.</p>
+                             <p className="text-muted-foreground italic">No se identificaron recursos específicos para ti en este momento. Considera contactar un centro de apoyo local para información general.</p>
                            )}
                         </CardContent>
                       </Card>
@@ -243,13 +248,13 @@ export default function ResultsPage() {
              </CardContent>
              <CardFooter className="flex justify-center pt-6 border-t">
                  <Button onClick={handleRetakeTest} variant="outline">
-                   Retake Test
+                   Repetir Test
                  </Button>
              </CardFooter>
           </Card>
        </main>
        <footer className="text-center py-4 text-sm text-muted-foreground">
-         FamilySafe AI - Prevention through Awareness
+         FamilySafe AI - Prevención a través de la Conciencia
        </footer>
     </div>
   );
