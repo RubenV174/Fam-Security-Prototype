@@ -17,8 +17,18 @@ import { cn } from '@/lib/utils'; // Import cn utility
 
 // Simplified Animated Placeholder for Illustrations
 const AnimatedIllustrationPlaceholder = ({ id }: { id: number }) => {
+  // Simple mapping for different placeholder 'scenes' based on question ID
+  const hints: Record<number, string> = {
+    1: 'person feeling tense anxious',
+    2: 'family calm discussion vs argument',
+    3: 'person feeling fear reaction',
+    4: 'family feeling supported together',
+    5: 'controlling behavior relationship',
+  };
   return (
-    <div className="w-full aspect-video bg-muted/50 rounded-lg flex items-center justify-center text-primary/50 p-4 border border-border/30">
+    <div
+       data-ai-hint={hints[id] || 'family dynamics abstract'}
+       className="w-full aspect-video bg-muted/50 rounded-lg flex items-center justify-center text-primary/50 p-4 border border-border/30">
        <ImageIcon className="w-16 h-16 sm:w-24 sm:h-24" />
        {/* Subtle pulse animation */}
        {/* <div className="animate-pulse">
@@ -35,7 +45,8 @@ interface Question {
   text: string;
   options?: { value: string; label: string }[];
   imageSrc?: string;
-  illustration: React.ReactNode;
+  illustration?: React.ReactNode; // Make illustration optional
+  imageHint?: string; // Add hint for AI image search
 }
 
 const questions: Question[] = [
@@ -105,13 +116,14 @@ const questions: Question[] = [
       text: "¿Qué emoción o situación te sugiere esta imagen?",
       // Placeholder image using picsum with a specific seed for consistency
       imageSrc: 'https://picsum.photos/seed/famsec_harmony/400/300',
+      imageHint: 'abstract family harmony peace', // Added hint
       options: [
           { value: 'armonia_paz', label: 'Armonía / Paz' },
           { value: 'tension_conflicto', label: 'Tensión / Conflicto' },
           { value: 'tristeza_soledad', label: 'Tristeza / Soledad' },
           { value: 'indiferencia', label: 'Indiferencia' },
       ],
-      illustration: null, // No placeholder needed if imageSrc is present
+      illustration: undefined, // No placeholder needed if imageSrc is present
   },
   {
       id: 7,
@@ -119,13 +131,14 @@ const questions: Question[] = [
       text: "Observa la imagen. ¿Qué dinámica familiar representa mejor para ti?",
       // Placeholder image using picsum with a different seed
       imageSrc: 'https://picsum.photos/seed/famsec_dynamics/400/300',
+      imageHint: 'abstract family dynamics connection distance', // Added hint
       options: [
           { value: 'conexion_apoyo', label: 'Conexión y apoyo' },
           { value: 'distanciamiento', label: 'Distanciamiento' },
           { value: 'jerarquia_control', label: 'Jerarquía / Control' },
           { value: 'caos_confusion', label: 'Caos / Confusión' },
       ],
-       illustration: null, // No placeholder needed
+       illustration: undefined, // No placeholder needed
   },
 ];
 
@@ -254,6 +267,7 @@ export default function TestPage() {
                              priority={currentQuestionIndex < 2} // Prioritize loading early images
                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Responsive image sizes
                              unoptimized={false} // Allow Next.js optimization
+                             data-ai-hint={currentQuestion.imageHint || 'abstract family scene'} // Add the AI hint
                          />
                      </div>
                  )}
@@ -358,4 +372,3 @@ export default function TestPage() {
     </div>
   );
 }
-```
