@@ -16,20 +16,20 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils'; // Import cn utility
 
 // Simplified Animated Placeholder for Illustrations
+import VirtualPet from '@/components/pets/VirtualPet';
+
 const AnimatedIllustrationPlaceholder = ({ id }: { id: number }) => {
-  // Simple mapping for different placeholder 'scenes' based on question ID
-  const hints: Record<number, string> = {
-    1: 'person feeling tense anxious',
-    2: 'family calm discussion vs argument',
-    3: 'person feeling fear reaction',
-    4: 'family feeling supported together',
-    5: 'controlling behavior relationship',
+  // Mapeo de mascotas por pregunta
+  const pets: Record<number, 'dog' | 'cat' | 'seal' | 'redPanda'> = {
+    1: 'dog',
+    2: 'cat',
+    3: 'seal',
+    4: 'redPanda',
+    5: 'dog',
   };
   return (
-    <div
-       data-ai-hint={hints[id] || 'family dynamics abstract'}
-       className="w-full aspect-video bg-muted/50 rounded-lg flex items-center justify-center text-primary/50 p-4 border border-border/30">
-       <ImageIcon className="w-16 h-16 sm:w-24 sm:h-24" />
+    <div className="w-full aspect-video bg-muted/50 rounded-lg flex items-center justify-center p-4 border border-border/30">
+      <VirtualPet petType={pets[id] || 'dog'} className="w-40 h-40" />
        {/* Subtle pulse animation */}
        {/* <div className="animate-pulse">
             <ImageIcon className="w-16 h-16 sm:w-24 sm:h-24" />

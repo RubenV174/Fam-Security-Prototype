@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Header from '@/components/Header';
 // Use icons that fit the theme - ShieldCheck and HeartHandshake are still relevant
 import { ShieldCheck, Users, ArrowRight } from 'lucide-react';
+import VirtualPet from '@/components/pets/VirtualPet';
 
 export default function HomePage() {
   return (
@@ -13,7 +14,10 @@ export default function HomePage() {
       <main className="flex-grow container mx-auto px-4 py-12 sm:py-16 md:py-24 flex flex-col items-center justify-center text-center">
 
         {/* Use primary color for the main icon */}
-        <ShieldCheck className="h-16 w-16 sm:h-20 sm:w-20 text-primary mb-6 animate-bounce" />
+        <div className="flex flex-col items-center mb-8">
+          <VirtualPet petType="dog" className="mb-4" />
+          <ShieldCheck className="h-16 w-16 sm:h-20 sm:w-20 text-primary animate-bounce" />
+        </div>
 
         <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl mb-4 animate-fadeIn">
           Bienvenido a <span className="text-primary">Fam Security</span>
