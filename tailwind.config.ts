@@ -85,7 +85,7 @@ export default {
                     animationTimingFunction: "cubic-bezier(0.8,0,1,1)",
                 },
                 "50%": {
-                    transform: "translateY(0)", // Changed from none to 0 for consistency
+                    transform: "translateY(0)",
                     animationTimingFunction: "cubic-bezier(0,0,0.2,1)",
                 },
             },

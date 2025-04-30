@@ -112,9 +112,8 @@
     --sidebar-border: 240 4% 16%;
     --sidebar-ring: 231 53% 58%;
   }
-}
 
-@layer base {
+  /* Moved styles for * and body inside the primary @layer base */
   * {
     @apply border-border;
   }
@@ -142,3 +141,4 @@ body, button, input, select, textarea, .bg-background, .bg-card, .bg-popover, .b
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
 }
 
+/* Keyframes can be defined directly in tailwind.config.js */

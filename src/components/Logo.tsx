@@ -4,61 +4,94 @@ interface LogoProps extends React.SVGProps<SVGSVGElement> {
   // Add any specific props if needed, e.g., size variants
 }
 
-// Approximate colors from the provided image
+// Colors from the provided logo image
 const logoOrange = '#F26422'; // Orange from image
-const logoBlue = '#3F51B5';   // Blue from image
+const logoBlue = '#3F51B5';   // Blue from image (similar to primary)
 const logoWhite = '#FFFFFF'; // White for "FAM"
 const logoTextOrange = '#F26422'; // Orange for "security"
 
 
 const Logo: FC<LogoProps> = (props) => {
-  // Adjusted viewBox for a potentially wider logo due to text placement
-  // viewBox="0 0 width height"
-  // Icon: approx 40x40, Text: approx 100 wide? Total maybe 150 wide. Height driven by text ~50-60.
+  // Adjusted viewBox for the new logo design which is wider.
+  // Icon is roughly circular, Text adds width. Approximate total width ~180-200, Height ~60.
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 180 60" // Adjusted viewBox: Wider to accommodate text better
-      width="144" // Default width (80% of 180)
+      viewBox="0 0 200 60" // Adjusted viewBox for wider logo
+      width="160" // Default width (80% of 200)
       height="48"  // Default height (80% of 60)
       {...props}
     >
-      {/* Icon Part - 4 Circles */}
-      <g transform="translate(10, 10)"> {/* Position the icon group */}
-        {/* Adjusted radius and positions for slight overlap/closeness */}
-        <circle cx="12" cy="12" r="11" fill={logoOrange} /> {/* Top-left */}
-        <circle cx="32" cy="12" r="11" fill={logoBlue} />   {/* Top-right */}
-        {/* Offset bottom circles slightly for visual connection */}
-        <circle cx="12" cy="32" r="11" fill={logoOrange} /> {/* Bottom-left */}
-        <circle cx="32" cy="32" r="11" fill={logoBlue} />   {/* Bottom-right */}
+      {/* Abstract Family Icon */}
+      <g transform="translate(5, 5)"> {/* Position the icon */}
+        {/* Top Orange Circle */}
+        <circle cx="25" cy="15" r="13" fill={logoOrange} />
+        {/* Top Blue Circle */}
+        <circle cx="50" cy="15" r="13" fill={logoBlue} />
+
+        {/* Connecting Arcs and Inner Figure */}
+        {/* Orange Arc */}
+        <path
+          d="M 12,27 A 30 30 0 0 0 45 48" // Adjusted arc path
+          stroke={logoOrange}
+          strokeWidth="10" // Adjust thickness as needed
+          fill="none"
+          strokeLinecap="round"
+        />
+         {/* Blue Arc */}
+        <path
+          d="M 63,27 A 30 30 0 0 1 30 48" // Adjusted arc path
+          stroke={logoBlue}
+          strokeWidth="10" // Adjust thickness
+          fill="none"
+          strokeLinecap="round"
+        />
+
+        {/* Inner Blue Figure (simplified) */}
+        <circle cx="37.5" cy="38" r="7" fill={logoBlue} /> {/* Head */}
+         {/* Body (approximation) */}
+         <path
+            d="M 37.5,45 Q 32 50 30 55"
+            stroke={logoBlue}
+            strokeWidth="6"
+            fill="none"
+            strokeLinecap="round"
+         />
+         <path
+            d="M 37.5,45 Q 43 50 45 55"
+            stroke={logoBlue}
+            strokeWidth="6"
+            fill="none"
+            strokeLinecap="round"
+         />
+
       </g>
 
       {/* Text Part */}
-      {/* Increased translate X to give more space between icon and text */}
-      <g transform="translate(65, 5)">
+      <g transform="translate(80, 5)"> {/* Increased translate X for more space */}
         {/* FAM (White, Bold) */}
         <text
-          x="5" // Start text slightly to the right
-          y="20" // Adjust vertical position
-          fontSize="32" // Slightly smaller than before, adjust as needed
+          x="5"
+          y="20" // Centered vertically more or less
+          fontSize="30" // Adjust size as needed
           fontWeight="bold"
-          fontFamily="Arial, Helvetica, sans-serif" // Using common sans-serif fonts
+          fontFamily="Arial, Helvetica, sans-serif" // Common sans-serif
           fill={logoWhite}
-          dominantBaseline="central"
-          letterSpacing="1"
+          dominantBaseline="central" // Align text vertically
+          letterSpacing="1.5" // Add some spacing
         >
           FAM
         </text>
-        {/* security (Orange, Regular/Light) */}
+        {/* security (Orange, Regular) */}
          <text
-          x="5" // Align with FAM
+          x="5"
           y="45" // Position below FAM
-          fontSize="18" // Smaller font size
+          fontSize="18" // Smaller size
           fontWeight="normal" // Regular weight
-          fontFamily="Arial, Helvetica, sans-serif" // Using common sans-serif fonts
+          fontFamily="Arial, Helvetica, sans-serif"
           fill={logoTextOrange}
-          dominantBaseline="hanging" // Align top of text to y position
-          letterSpacing="0.5"
+          dominantBaseline="hanging" // Align top of text to y
+          letterSpacing="0.8" // Add some spacing
         >
           security
         </text>
