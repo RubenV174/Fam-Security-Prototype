@@ -76,7 +76,10 @@ const Logo: FC<LogoProps> = (props) => {
           fontSize="30" // Adjust size as needed
           fontWeight="bold"
           fontFamily="Arial, Helvetica, sans-serif" // Common sans-serif
-          fill={logoWhite}
+          // Use a fill color that contrasts with the background.
+          // If the background is dark, use white. If light, use a dark color from the theme.
+          // Using white as a safe default, but ideally adapt to theme.
+          fill="hsl(var(--foreground))" // Change fill to foreground for better contrast
           dominantBaseline="central" // Align text vertically
           letterSpacing="1.5" // Add some spacing
         >
@@ -89,7 +92,7 @@ const Logo: FC<LogoProps> = (props) => {
           fontSize="18" // Smaller size
           fontWeight="normal" // Regular weight
           fontFamily="Arial, Helvetica, sans-serif"
-          fill={logoTextOrange}
+          fill={logoTextOrange} // Use logo orange
           dominantBaseline="hanging" // Align top of text to y
           letterSpacing="0.8" // Add some spacing
         >
