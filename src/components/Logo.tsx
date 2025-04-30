@@ -5,36 +5,38 @@ interface LogoProps extends React.SVGProps<SVGSVGElement> {
 }
 
 const primaryColor = 'hsl(var(--primary))'; // Blue from theme
-// Using destructive for the reddish-orange/accent color
-const secondaryColor = 'hsl(var(--destructive))';
+// Using accent for a softer, supportive feel (was destructive/red-orange)
+const accentColor = 'hsl(var(--accent-foreground))'; // Using accent foreground for visibility
 const foregroundColor = 'hsl(var(--foreground))'; // Text color from theme
+const backgroundColor = 'hsl(var(--background))'; // Background for contrast if needed
 
 const Logo: FC<LogoProps> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 200 50" // Adjusted viewBox for potentially wider logo
-      width="160" // Adjusted default width
-      height="40"  // Adjusted default height
+      viewBox="0 0 220 50" // Adjusted viewBox for potentially wider logo
+      width="176" // Adjusted default width (80% of 220)
+      height="40"  // Adjusted default height (80% of 50)
       {...props}
     >
-      {/* Icon: Abstract Shield + Heart/Family */}
+      {/* Icon: Abstract representation of family within a protective shape */}
       <g transform="translate(5, 2.5) scale(0.9)">
-        {/* Outer Shield Shape (Blue) */}
+        {/* Protective Outline Shape (Primary Blue) - softer, more like hands/shelter */}
         <path
-          d="M 25 5 C 15 5 5 15 5 25 S 15 45 25 45 C 35 45 45 35 45 25 S 35 5 25 5 Z M 25 8 A 17 17 0 1 1 25 42 A 17 17 0 0 1 25 8 Z"
+          d="M 25 5 Q 5 5, 5 25 Q 5 45, 25 48 Q 45 45, 45 25 Q 45 5, 25 5 Z M 25 8 Q 42 8, 42 25 Q 42 42, 25 45 Q 8 42, 8 25 Q 8 8, 25 8 Z"
           fill={primaryColor}
           stroke="none"
         />
-         {/* Inner Abstract Heart/Family Shape (Red-Orange) */}
-         <path
-            d="M 25 15 C 20 15 18 20 18 22 C 18 28 25 35 25 35 C 25 35 32 28 32 22 C 32 20 30 15 25 15 Z"
-            fill={secondaryColor}
-            stroke="none"
-         />
-          {/* Small accent dots (optional, using foreground) */}
-          <circle cx="15" cy="18" r="1.5" fill={foregroundColor + '80'} />
-          <circle cx="35" cy="18" r="1.5" fill={foregroundColor + '80'} />
+        {/* Inner Family/Heart Element (Accent Color) - more abstract, less sharp heart */}
+        <path
+           d="M 25 16 C 21 16, 19 20, 19 23 C 19 29, 25 36, 25 36 C 25 36, 31 29, 31 23 C 31 20, 29 16, 25 16 Z"
+           fill={backgroundColor} // Use background for inner shape
+           stroke={accentColor} // Use accent for the outline of the inner shape
+           strokeWidth="1.5"
+        />
+         {/* Optional subtle 'sparkle' for mental clarity/positivity */}
+        <circle cx="33" cy="15" r="1.5" fill={accentColor + 'A0'} />
+
       </g>
 
       {/* Text: Fam Security */}
@@ -43,25 +45,25 @@ const Logo: FC<LogoProps> = (props) => {
         <text
           x="5"
           y="25" // Vertically centered
-          fontSize="28" // Slightly larger
+          fontSize="28"
           fontWeight="600" // Semi-bold
           fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
           fill={foregroundColor} // Use theme foreground color
           dominantBaseline="middle" // Align vertically
-          letterSpacing="-0.5" // Slightly tighter spacing
+          letterSpacing="-0.5"
         >
           Fam
         </text>
         {/* Security */}
          <text
-          x="55" // Positioned after "Fam"
+          x="60" // Adjusted position after "Fam"
           y="25" // Align baseline with "Fam"
-          fontSize="28" // Same size
+          fontSize="28"
           fontWeight="300" // Lighter weight
           fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
           fill={foregroundColor} // Use theme foreground color
           dominantBaseline="middle"
-          letterSpacing="0" // Normal spacing
+          letterSpacing="0"
         >
           Security
         </text>
