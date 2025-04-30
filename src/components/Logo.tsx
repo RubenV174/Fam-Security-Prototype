@@ -7,19 +7,19 @@ interface LogoProps extends React.SVGProps<SVGSVGElement> {
 // Colors from the provided logo image
 const logoOrange = '#F26422'; // Orange from image
 const logoBlue = '#3F51B5';   // Blue from image (similar to primary)
-const logoWhite = '#FFFFFF'; // White for "FAM"
+// const logoWhite = '#FFFFFF'; // White for "FAM" - Replaced with foreground theme color
 const logoTextOrange = '#F26422'; // Orange for "security"
 
 
 const Logo: FC<LogoProps> = (props) => {
-  // Adjusted viewBox for the new logo design which is wider.
-  // Icon is roughly circular, Text adds width. Approximate total width ~180-200, Height ~60.
+  // Adjusted viewBox for better text fitting. Increased width.
+  // Increased default width/height slightly for better visibility.
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 200 60" // Adjusted viewBox for wider logo
-      width="160" // Default width (80% of 200)
-      height="48"  // Default height (80% of 60)
+      viewBox="0 0 240 60" // Increased width in viewBox
+      width="192" // Adjusted default width (80% of 240)
+      height="48"  // Kept default height
       {...props}
     >
       {/* Abstract Family Icon */}
@@ -67,34 +67,33 @@ const Logo: FC<LogoProps> = (props) => {
 
       </g>
 
-      {/* Text Part */}
-      <g transform="translate(80, 5)"> {/* Increased translate X for more space */}
-        {/* FAM (White, Bold) */}
+      {/* Text Part - Using system fonts for iOS look */}
+      <g transform="translate(85, 0)"> {/* Adjusted translate X for more space */}
+        {/* FAM (Foreground Color, Bold) */}
         <text
-          x="5"
-          y="20" // Centered vertically more or less
-          fontSize="30" // Adjust size as needed
-          fontWeight="bold"
-          fontFamily="Arial, Helvetica, sans-serif" // Common sans-serif
-          // Use a fill color that contrasts with the background.
-          // If the background is dark, use white. If light, use a dark color from the theme.
-          // Using white as a safe default, but ideally adapt to theme.
-          fill="hsl(var(--foreground))" // Change fill to foreground for better contrast
-          dominantBaseline="central" // Align text vertically
-          letterSpacing="1.5" // Add some spacing
+          x="0" // Start at the beginning of the group
+          y="30" // Vertically centered (half of viewBox height)
+          fontSize="28" // Slightly adjusted size
+          fontWeight="600" // Semi-bold weight, common in iOS titles
+          // System font stack prioritizing Apple fonts
+          fontFamily="'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'"
+          fill="hsl(var(--foreground))" // Use theme foreground color
+          dominantBaseline="central" // Better vertical alignment
+          letterSpacing="1" // Adjusted spacing
         >
           FAM
         </text>
-        {/* security (Orange, Regular) */}
+        {/* security (Orange, Lighter Weight) */}
          <text
-          x="5"
-          y="45" // Position below FAM
-          fontSize="18" // Smaller size
-          fontWeight="normal" // Regular weight
-          fontFamily="Arial, Helvetica, sans-serif"
+          x="65" // Position relative to FAM (adjust as needed)
+          y="30" // Align baseline with FAM vertically
+          fontSize="26" // Slightly larger for better balance
+          fontWeight="300" // Lighter weight for contrast, typical iOS style
+          // System font stack prioritizing Apple fonts
+          fontFamily="'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'"
           fill={logoTextOrange} // Use logo orange
-          dominantBaseline="hanging" // Align top of text to y
-          letterSpacing="0.8" // Add some spacing
+          dominantBaseline="central" // Align text vertically with FAM
+          letterSpacing="0.5" // Adjusted spacing
         >
           security
         </text>
