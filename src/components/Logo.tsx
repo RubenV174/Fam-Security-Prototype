@@ -4,68 +4,71 @@ interface LogoProps extends React.SVGProps<SVGSVGElement> {
   // Add any specific props if needed, e.g., size variants
 }
 
-const primaryColor = 'hsl(var(--primary))'; // Blue from theme
-// Using accent for a softer, supportive feel (was destructive/red-orange)
-const accentColor = 'hsl(var(--accent-foreground))'; // Using accent foreground for visibility
-const foregroundColor = 'hsl(var(--foreground))'; // Text color from theme
-const backgroundColor = 'hsl(var(--background))'; // Background for contrast if needed
+// Approximate colors from the provided image
+const logoOrange = '#F26422'; // Approximate orange
+const logoBlue = '#3F51B5';   // Approximate lighter blue
+const logoDarkBlue = '#303F9F'; // Approximate darker blue for the child figure
+const logoWhite = '#FFFFFF'; // White for "FAM"
+const logoTextOrange = '#F26422'; // Orange for "security"
+
+// Using theme colors where appropriate for consistency, but logo colors for specific parts
+const themePrimary = 'hsl(var(--primary))'; // Will be updated to match logoBlue
+const themeForeground = 'hsl(var(--foreground))';
+
 
 const Logo: FC<LogoProps> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 220 50" // Adjusted viewBox for potentially wider logo
-      width="176" // Adjusted default width (80% of 220)
-      height="40"  // Adjusted default height (80% of 50)
+      // Increased viewBox width to accommodate the wider design
+      viewBox="0 0 300 60" // Adjusted viewBox: Wider to fit text, slightly taller
+      width="240" // Default width (80% of 300)
+      height="48"  // Default height (80% of 60)
       {...props}
     >
-      {/* Icon: Abstract representation of family within a protective shape */}
-      <g transform="translate(5, 2.5) scale(0.9)">
-        {/* Protective Outline Shape (Primary Blue) - softer, more like hands/shelter */}
-        <path
-          d="M 25 5 Q 5 5, 5 25 Q 5 45, 25 48 Q 45 45, 45 25 Q 45 5, 25 5 Z M 25 8 Q 42 8, 42 25 Q 42 42, 25 45 Q 8 42, 8 25 Q 8 8, 25 8 Z"
-          fill={primaryColor}
-          stroke="none"
-        />
-        {/* Inner Family/Heart Element (Accent Color) - more abstract, less sharp heart */}
-        <path
-           d="M 25 16 C 21 16, 19 20, 19 23 C 19 29, 25 36, 25 36 C 25 36, 31 29, 31 23 C 31 20, 29 16, 25 16 Z"
-           fill={backgroundColor} // Use background for inner shape
-           stroke={accentColor} // Use accent for the outline of the inner shape
-           strokeWidth="1.5"
-        />
-         {/* Optional subtle 'sparkle' for mental clarity/positivity */}
-        <circle cx="33" cy="15" r="1.5" fill={accentColor + 'A0'} />
+      {/* Icon Part */}
+      <g transform="translate(10, 5) scale(1.1)"> {/* Adjusted position and scale */}
+        {/* Orange Circle and Arm */}
+        <circle cx="20" cy="15" r="12" fill={logoOrange} />
+        <path d="M 20 27 C 5 30, 5 48, 25 48 C 35 48, 40 40, 38 35 Z" fill={logoOrange} />
 
+        {/* Blue Circle and Arm */}
+         <circle cx="45" cy="15" r="12" fill={logoBlue} />
+         <path d="M 45 27 C 60 30, 60 48, 40 48 C 30 48, 25 40, 27 35 Z" fill={logoBlue} />
+
+        {/* Inner Dark Blue Circle (Child Figure) */}
+        <circle cx="32.5" cy="35" r="8" fill={logoDarkBlue} />
+         {/* Small path to suggest body/connection for the child figure */}
+         <path d="M 32.5 43 C 30 46, 35 46, 32.5 43 Z" fill={logoDarkBlue} />
       </g>
 
-      {/* Text: Fam Security */}
-      <g transform="translate(60, 0)">
-        {/* Fam */}
+      {/* Text Part */}
+      <g transform="translate(95, 0)"> {/* Adjusted X translation to move text right */}
+        {/* FAM (White, Bold) */}
         <text
           x="5"
-          y="25" // Vertically centered
-          fontSize="28"
-          fontWeight="600" // Semi-bold
-          fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-          fill={foregroundColor} // Use theme foreground color
-          dominantBaseline="middle" // Align vertically
-          letterSpacing="-0.5"
+          y="25" // Vertically center relative to its own height
+          fontSize="36" // Slightly larger font size
+          fontWeight="bold" // Bold
+          fontFamily="Arial, Helvetica, sans-serif" // Standard bold font
+          fill={logoWhite} // White color
+          dominantBaseline="central" // Better vertical alignment
+          letterSpacing="1" // Adjust letter spacing if needed
         >
-          Fam
+          FAM
         </text>
-        {/* Security */}
+        {/* security (Orange, Regular/Light) */}
          <text
-          x="60" // Adjusted position after "Fam"
-          y="25" // Align baseline with "Fam"
-          fontSize="28"
-          fontWeight="300" // Lighter weight
-          fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-          fill={foregroundColor} // Use theme foreground color
-          dominantBaseline="middle"
-          letterSpacing="0"
+          x="5" // Align start with FAM
+          y="50" // Position below FAM
+          fontSize="22" // Smaller font size
+          fontWeight="normal" // Regular weight
+          fontFamily="Arial, Helvetica, sans-serif" // Standard font
+          fill={logoTextOrange} // Orange color
+          dominantBaseline="hanging" // Align top of text to y position
+          letterSpacing="0.5" // Adjust letter spacing
         >
-          Security
+          security
         </text>
       </g>
     </svg>

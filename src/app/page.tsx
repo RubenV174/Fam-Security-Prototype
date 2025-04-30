@@ -2,14 +2,17 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Header from '@/components/Header';
-import { ShieldCheck, HeartHandshake, ArrowRight } from 'lucide-react';
+// Use icons that fit the theme - ShieldCheck and HeartHandshake are still relevant
+import { ShieldCheck, Users, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background to-primary/10 dark:from-background dark:via-background dark:to-primary/5">
+    // Adjusted gradient to use primary color subtly
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background/90 to-primary/10 dark:from-background dark:via-background/90 dark:to-primary/20">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-12 sm:py-16 md:py-24 flex flex-col items-center justify-center text-center">
 
+        {/* Use primary color for the main icon */}
         <ShieldCheck className="h-16 w-16 sm:h-20 sm:w-20 text-primary mb-6 animate-bounce" />
 
         <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl mb-4 animate-fadeIn">
@@ -19,10 +22,11 @@ export default function HomePage() {
           Comprende mejor la dinámica familiar y toma medidas hacia un entorno más seguro y saludable. Nuestra evaluación intuitiva ayuda a identificar riesgos potenciales.
         </p>
 
-        {/* Enhanced Card Styling */}
+        {/* Card styling */}
         <Card className="w-full max-w-md shadow-lg rounded-xl animate-fadeIn [animation-delay:0.4s] border border-border/50">
           <CardHeader className="items-center pt-8 pb-4">
-             <HeartHandshake className="h-10 w-10 sm:h-12 sm:w-12 text-primary mb-3" />
+             {/* Changed icon to 'Users' to represent family/group */}
+             <Users className="h-10 w-10 sm:h-12 sm:w-12 text-primary mb-3" />
             <CardTitle className="text-xl sm:text-2xl font-semibold">Comienza tu Evaluación</CardTitle>
             <CardDescription className="text-sm sm:text-base text-center px-4">
               Participa en nuestro breve test gamificado para obtener información valiosa. Es confidencial y está diseñado para ser de apoyo.
@@ -39,7 +43,7 @@ export default function HomePage() {
                </Button>
              </Link>
           </CardContent>
-          {/* Removed CardFooter as button is now in CardContent */}
+          {/* Footer removed */}
         </Card>
 
       </main>

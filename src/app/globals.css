@@ -4,75 +4,113 @@
 
 @layer base {
   :root {
-    --background: 240 10% 98%; /* Slightly warmer light grey */
-    --foreground: 240 8% 10%; /* Darker grey for better contrast */
-    --card: 0 0% 100%; /* White */
+    /* Updated theme colors based on new logo */
+    --background: 240 10% 98%; /* Keep light grey background */
+    --foreground: 240 8% 10%; /* Keep dark grey text */
+
+    --card: 0 0% 100%; /* White cards */
     --card-foreground: 240 8% 10%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 240 8% 10%;
-    --primary: 211 100% 50%; /* iOS Blue */
-    --primary-foreground: 0 0% 100%; /* White */
-    --secondary: 240 5% 96%; /* Lighter grey */
+
+    /* --- Core Color Updates --- */
+    --primary: 231 53% 48%; /* Logo Blue (approx #3F51B5) */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+
+    /* Using Logo Orange for destructive elements, consider if another role is better */
+    --destructive: 18 88% 54%; /* Logo Orange (approx #F26422) */
+    --destructive-foreground: 0 0% 100%; /* White text on destructive */
+
+    /* Adjust secondary and muted for harmony */
+    --secondary: 230 20% 96%; /* Lighter, cooler grey */
     --secondary-foreground: 240 6% 10%;
-    --muted: 240 5% 96%;
+
+    --muted: 230 20% 96%;
     --muted-foreground: 240 4% 46%;
-    --accent: 240 5% 94%; /* Slightly darker grey for hover */
+
+    /* Accent for hover states - could be a lighter blue or grey */
+    --accent: 230 20% 94%; /* Slightly darker cool grey */
     --accent-foreground: 240 6% 10%;
-    --destructive: 0 84.2% 60.2%; /* Standard destructive red */
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 6% 90%; /* Light grey border */
-    --input: 240 6% 90%;
-    --ring: 211 100% 50%; /* Blue for focus rings */
-    --chart-1: 211 100% 50%; /* Blue */
-    --chart-2: 173 58% 45%; /* Slightly adjusted green */
-    --chart-3: 197 37% 30%; /* Slightly adjusted teal */
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.75rem; /* iOS like rounded corners */
+
+    /* --- Borders and Rings --- */
+    --border: 230 15% 90%; /* Cooler grey border */
+    --input: 230 15% 90%;
+    --ring: 231 53% 48%; /* Logo Blue for focus rings */
+
+    /* --- Charts --- */
+    --chart-1: 231 53% 48%; /* Logo Blue */
+    --chart-2: 18 88% 54%;  /* Logo Orange */
+    --chart-3: 197 37% 50%; /* Teal/Cyan - keep for variety */
+    --chart-4: 43 74% 66%;  /* Yellow - keep for variety */
+    --chart-5: 270 50% 60%; /* Purple - keep for variety */
+
+    /* --- Radius --- */
+    --radius: 0.75rem; /* Keep iOS like rounded corners */
+
+    /* --- Sidebar --- */
     --sidebar-background: 240 10% 98%;
     --sidebar-foreground: 240 8% 10%;
-    --sidebar-primary: 211 100% 50%;
+    --sidebar-primary: 231 53% 48%; /* Logo Blue */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 5% 94%;
+    --sidebar-accent: 230 20% 94%;
     --sidebar-accent-foreground: 240 6% 10%;
-    --sidebar-border: 240 6% 90%;
-    --sidebar-ring: 211 100% 50%;
+    --sidebar-border: 230 15% 90%;
+    --sidebar-ring: 231 53% 48%;
   }
 
   .dark {
-    /* Refined Dark Mode Variables */
+    /* Dark Mode Variables - Adjusted for new logo colors */
     --background: 240 6% 10%; /* Dark grey */
     --foreground: 0 0% 98%; /* Light grey/white */
+
     --card: 240 5% 11%; /* Slightly lighter dark grey */
     --card-foreground: 0 0% 98%;
+
     --popover: 240 6% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 211 100% 50%; /* iOS Blue */
+
+    /* --- Core Color Updates (Dark) --- */
+    --primary: 231 53% 58%; /* Lighter Logo Blue for dark mode contrast */
     --primary-foreground: 0 0% 100%; /* White */
+
+    /* Destructive Orange needs good contrast in dark mode */
+    --destructive: 18 88% 60%; /* Slightly brighter Logo Orange */
+    --destructive-foreground: 0 0% 10%; /* Dark text on orange */
+
+    /* Adjust secondary and muted for dark harmony */
     --secondary: 240 4% 16%; /* Darker grey */
     --secondary-foreground: 0 0% 98%;
+
     --muted: 240 4% 16%;
     --muted-foreground: 240 5% 65%;
-    --accent: 240 4% 18%; /* Darker accent for hover */
+
+    /* Darker accent for hover */
+    --accent: 240 4% 18%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 63% 50%; /* Adjusted destructive red for dark */
-    --destructive-foreground: 0 0% 98%;
+
+    /* --- Borders and Rings (Dark) --- */
     --border: 240 4% 16%;
     --input: 240 4% 16%;
-    --ring: 211 100% 50%; /* Blue */
-    --chart-1: 211 100% 50%;
-    --chart-2: 173 58% 45%;
-    --chart-3: 197 37% 30%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --ring: 231 53% 58%; /* Lighter Logo Blue */
+
+    /* --- Charts (Dark) --- */
+    /* Use slightly brighter versions for dark mode */
+    --chart-1: 231 53% 58%;
+    --chart-2: 18 88% 60%;
+    --chart-3: 197 37% 60%;
+    --chart-4: 43 74% 70%;
+    --chart-5: 270 50% 70%;
+
+    /* --- Sidebar (Dark) --- */
     --sidebar-background: 240 6% 10%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 211 100% 50%;
+    --sidebar-primary: 231 53% 58%; /* Lighter Logo Blue */
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4% 18%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 240 4% 16%;
-    --sidebar-ring: 211 100% 50%;
+    --sidebar-ring: 231 53% 58%;
   }
 }
 
