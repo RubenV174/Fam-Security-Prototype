@@ -18,81 +18,79 @@ const RedPanda: React.FC<RedPandaProps> = ({
     )}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100"
+        viewBox="0 0 16 16"
         width="100%"
         height="100%"
+        style={{ imageRendering: 'pixelated' }}
         {...props}
       >
-        {/* Cuerpo */}
-        <ellipse 
-          cx="50" 
-          cy="60" 
-          rx="25" 
-          ry="20" 
+        {/* Fondo transparente para el grid */}
+        <rect width="16" height="16" fill="none" />
+        
+        {/* Cuerpo - Naranja */}
+        <rect 
+          x="5" 
+          y="9" 
+          width="6" 
+          height="4" 
           fill="#FF5733"
-          className={isAnimating ? 'animate-[pandaBounce_2s_ease-in-out_infinite]' : ''}
+          className={isAnimating ? 'animate-[pixelBounce_2s_ease-in-out_infinite]' : ''}
         />
         
-        {/* Cabeza */}
-        <circle 
-          cx="50" 
-          cy="35" 
-          r="18" 
+        {/* Cabeza - Naranja */}
+        <rect 
+          x="4" 
+          y="5" 
+          width="8" 
+          height="4" 
           fill="#FF5733"
-          className={isAnimating ? 'animate-[pandaHead_3s_ease-in-out_infinite]' : ''}
+          className={isAnimating ? 'animate-[pixelShift_3s_ease-in-out_infinite]' : ''}
         />
         
         {/* Máscara facial blanca */}
-        <path 
-          d="M40 30 Q50 45 60 30" 
-          fill="#FFFFFF"
+        <rect x="6" y="7" width="4" height="2" fill="#FFFFFF" />
+        
+        {/* Orejas - Marrón */}
+        <rect 
+          x="3" 
+          y="4" 
+          width="2" 
+          height="2" 
+          fill="#8B4513"
+          className={isAnimating ? 'animate-[pixelBounce_3s_ease-in-out_infinite]' : ''}
+        />
+        <rect 
+          x="11" 
+          y="4" 
+          width="2" 
+          height="2" 
+          fill="#8B4513"
+          className={isAnimating ? 'animate-[pixelBounce_3s_ease-in-out_infinite]' : ''}
         />
         
-        {/* Ojos */}
-        <g className={isAnimating ? 'animate-[pandaBlink_4s_ease-in-out_infinite]' : ''}>
-          <circle cx="43" cy="32" r="3" fill="#000000" />
-          <circle cx="57" cy="32" r="3" fill="#000000" />
+        {/* Ojos - Negros */}
+        <g className={isAnimating ? 'animate-[pixelBlink_4s_ease-in-out_infinite]' : ''}>
+          <rect x="5" y="6" width="1" height="1" fill="#000000" />
+          <rect x="10" y="6" width="1" height="1" fill="#000000" />
         </g>
         
-        {/* Nariz */}
-        <circle cx="50" cy="36" r="2" fill="#000000" />
-        
-        {/* Orejas */}
-        <path 
-          d="M35 20 L40 25 L32 28 Z" 
-          fill="#8B4513"
-          className={isAnimating ? 'animate-[pandaEars_2s_ease-in-out_infinite]' : ''}
-        />
-        <path 
-          d="M65 20 L60 25 L68 28 Z" 
-          fill="#8B4513"
-          className={isAnimating ? 'animate-[pandaEars_2s_ease-in-out_infinite]' : ''}
-        />
+        {/* Nariz - Negra */}
+        <rect x="7" y="7" width="2" height="1" fill="#000000" />
         
         {/* Marcas faciales */}
-        <path d="M38 28 L35 25" stroke="#8B4513" strokeWidth="2" />
-        <path d="M62 28 L65 25" stroke="#8B4513" strokeWidth="2" />
+        <rect x="4" y="5" width="1" height="1" fill="#8B4513" />
+        <rect x="11" y="5" width="1" height="1" fill="#8B4513" />
         
         {/* Cola rayada */}
-        <g className={isAnimating ? 'animate-[pandaTail_2s_ease-in-out_infinite]' : ''}>
-          <path 
-            d="M75 60 Q85 55 80 45" 
-            stroke="#FF5733" 
-            strokeWidth="8" 
-            fill="none"
-          />
-          <path 
-            d="M75 60 Q85 55 80 45" 
-            stroke="#8B4513" 
-            strokeWidth="2" 
-            fill="none"
-            strokeDasharray="4 4"
-          />
+        <g className={isAnimating ? 'animate-[pixelWag_2s_ease-in-out_infinite]' : ''}>
+          <rect x="11" y="10" width="3" height="2" fill="#FF5733" />
+          <rect x="12" y="10" width="1" height="1" fill="#8B4513" />
+          <rect x="11" y="11" width="1" height="1" fill="#8B4513" />
         </g>
         
         {/* Patas */}
-        <rect x="35" y="75" width="6" height="10" fill="#8B4513" />
-        <rect x="59" y="75" width="6" height="10" fill="#8B4513" />
+        <rect x="5" y="13" width="2" height="2" fill="#8B4513" />
+        <rect x="9" y="13" width="2" height="2" fill="#8B4513" />
       </svg>
     </div>
   );
@@ -102,28 +100,23 @@ export default RedPanda;
 
 // Añadir estos estilos en tu archivo global.css
 /*
-@keyframes pandaBounce {
+@keyframes pixelWag {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px) rotate(15deg); }
+}
+
+@keyframes pixelBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+
+@keyframes pixelShift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px); }
+}
+
+@keyframes pixelBounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-@keyframes pandaHead {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(5deg); }
-}
-
-@keyframes pandaBlink {
-  0%, 90%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
-}
-
-@keyframes pandaEars {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(5deg); }
-}
-
-@keyframes pandaTail {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-10deg); }
+  50% { transform: translateY(-1px); }
 }
 */

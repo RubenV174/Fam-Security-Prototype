@@ -198,6 +198,42 @@
     0%, 100% { transform: rotate(0deg); }
     50% { transform: rotate(-20deg); }
   }
+  
+  /* Animaciones para Stardew Valley Pets */
+  @keyframes stardewIdle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  
+  @keyframes stardewWalk {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  
+  @keyframes stardewEarTwitch {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    95% { transform: rotate(-5deg); }
+  }
+  
+  @keyframes stardewTailWag {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+  }
+  
+  @keyframes pixelShift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(2px); }
+  }
+  
+  @keyframes pixelBlink {
+    0%, 90%, 100% { opacity: 1; }
+    95% { opacity: 0; }
+  }
+  
+  @keyframes pixelBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
 
   @keyframes catBlink {
     0%, 90%, 100% { transform: scaleY(1); }
@@ -264,6 +300,60 @@
   @keyframes pandaTail {
     0%, 100% { transform: rotate(0deg); }
     50% { transform: rotate(-10deg); }
+  }
+  
+  /* Animaciones para mascotas pixelart */
+  @keyframes pixelWag {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(1px) rotate(15deg); }
+  }
+
+  @keyframes pixelBlink {
+    0%, 90%, 100% { opacity: 1; }
+    95% { opacity: 0; }
+  }
+
+  @keyframes pixelShift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(1px); }
+  }
+
+  @keyframes pixelBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+  }
+  
+  /* Animaciones adicionales para mascotas estilo Stardew Valley */
+  @keyframes stardewWalk {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(2px) translateY(-1px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(2px) translateY(-1px); }
+  }
+  
+  @keyframes stardewIdle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  
+  @keyframes stardewTailWag {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(15deg); }
+  }
+  
+  @keyframes stardewEarTwitch {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    95% { transform: rotate(10deg); }
+  }
+  
+  @keyframes stardewHeadTilt {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+  
+  @keyframes stardewBlink {
+    0%, 85%, 100% { transform: scaleY(1); }
+    90% { transform: scaleY(0.2); }
   }
 }
 

@@ -18,42 +18,47 @@ const Dog: React.FC<DogProps> = ({
     )}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100"
+        viewBox="0 0 16 16"
         width="100%"
         height="100%"
+        style={{ imageRendering: 'pixelated' }}
         {...props}
       >
-        {/* Cuerpo */}
-        <ellipse cx="50" cy="60" rx="25" ry="20" fill="#B87A3D" />
+        {/* Fondo transparente para el grid */}
+        <rect width="16" height="16" fill="none" />
         
-        {/* Cabeza */}
-        <circle cx="50" cy="35" r="18" fill="#B87A3D" />
+        {/* Cuerpo - Marrón */}
+        <rect x="5" y="9" width="6" height="4" fill="#B87A3D" />
         
-        {/* Ojos */}
-        <g className={isAnimating ? 'animate-[blink_4s_ease-in-out_infinite]' : ''}>
-          <circle cx="43" cy="32" r="3" fill="#000000" />
-          <circle cx="57" cy="32" r="3" fill="#000000" />
-        </g>
-        
-        {/* Nariz */}
-        <circle cx="50" cy="38" r="4" fill="#000000" />
+        {/* Cabeza - Marrón */}
+        <rect x="4" y="5" width="8" height="4" fill="#B87A3D" />
         
         {/* Orejas */}
-        <path d="M35 25 Q33 15 40 22" fill="#8B5E3C" />
-        <path d="M65 25 Q67 15 60 22" fill="#8B5E3C" />
+        <rect x="3" y="3" width="2" height="3" fill="#8B5E3C" className={isAnimating ? 'animate-[pixelBounce_3s_ease-in-out_infinite]' : ''} />
+        <rect x="11" y="3" width="2" height="3" fill="#8B5E3C" className={isAnimating ? 'animate-[pixelBounce_3s_ease-in-out_infinite]' : ''} />
+        
+        {/* Ojos - Negros */}
+        <g className={isAnimating ? 'animate-[pixelBlink_4s_ease-in-out_infinite]' : ''}>
+          <rect x="5" y="6" width="1" height="1" fill="#000000" />
+          <rect x="10" y="6" width="1" height="1" fill="#000000" />
+        </g>
+        
+        {/* Nariz - Negra */}
+        <rect x="7" y="7" width="2" height="2" fill="#000000" />
         
         {/* Cola */}
-        <path 
-          d="M75 60 Q80 55 77 50" 
-          stroke="#B87A3D" 
-          strokeWidth="4" 
-          fill="none"
-          className={isAnimating ? 'animate-[wag_1s_ease-in-out_infinite]' : ''}
+        <rect 
+          x="11" 
+          y="9" 
+          width="3" 
+          height="2" 
+          fill="#B87A3D"
+          className={isAnimating ? 'animate-[pixelWag_1s_ease-in-out_infinite]' : ''}
         />
         
         {/* Patas */}
-        <rect x="35" y="75" width="6" height="10" fill="#8B5E3C" />
-        <rect x="59" y="75" width="6" height="10" fill="#8B5E3C" />
+        <rect x="5" y="13" width="2" height="2" fill="#8B5E3C" />
+        <rect x="9" y="13" width="2" height="2" fill="#8B5E3C" />
       </svg>
     </div>
   );
@@ -63,13 +68,23 @@ export default Dog;
 
 // Añadir estos estilos en tu archivo global.css
 /*
-@keyframes wag {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(10deg); }
+@keyframes pixelWag {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px) rotate(15deg); }
 }
 
-@keyframes blink {
-  0%, 90%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
+@keyframes pixelBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+
+@keyframes pixelShift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px); }
+}
+
+@keyframes pixelBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
 }
 */

@@ -18,68 +18,70 @@ const Seal: React.FC<SealProps> = ({
     )}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100"
+        viewBox="0 0 16 16"
         width="100%"
         height="100%"
+        style={{ imageRendering: 'pixelated' }}
         {...props}
       >
-        {/* Cuerpo */}
-        <ellipse 
-          cx="50" 
-          cy="60" 
-          rx="30" 
-          ry="25" 
-          fill="#708090"
-          className={isAnimating ? 'animate-[sealBounce_2s_ease-in-out_infinite]' : ''}
+        {/* Fondo transparente para el grid */}
+        <rect width="16" height="16" fill="none" />
+        
+        {/* Cuerpo - Gris claro */}
+        <rect 
+          x="5" 
+          y="8" 
+          width="6" 
+          height="5" 
+          fill="#A9A9A9"
+          className={isAnimating ? 'animate-[pixelBounce_2s_ease-in-out_infinite]' : ''}
         />
         
-        {/* Cabeza */}
-        <circle 
-          cx="50" 
-          cy="30" 
-          r="15" 
-          fill="#708090"
-          className={isAnimating ? 'animate-[sealNod_3s_ease-in-out_infinite]' : ''}
+        {/* Cabeza - Gris claro */}
+        <rect 
+          x="4" 
+          y="5" 
+          width="8" 
+          height="3" 
+          fill="#A9A9A9"
+          className={isAnimating ? 'animate-[pixelShift_3s_ease-in-out_infinite]' : ''}
         />
         
-        {/* Ojos */}
-        <g className={isAnimating ? 'animate-[sealBlink_4s_ease-in-out_infinite]' : ''}>
-          <circle cx="45" cy="28" r="2.5" fill="#000000" />
-          <circle cx="55" cy="28" r="2.5" fill="#000000" />
+        {/* Nariz - Negra */}
+        <rect x="7" y="7" width="2" height="1" fill="#000000" />
+        
+        {/* Ojos - Negros */}
+        <g className={isAnimating ? 'animate-[pixelBlink_4s_ease-in-out_infinite]' : ''}>
+          <rect x="5" y="6" width="1" height="1" fill="#000000" />
+          <rect x="10" y="6" width="1" height="1" fill="#000000" />
         </g>
         
-        {/* Nariz */}
-        <circle cx="50" cy="32" r="3" fill="#000000" />
-        
         {/* Bigotes */}
-        <g className={isAnimating ? 'animate-[sealWhiskers_2s_ease-in-out_infinite]' : ''}>
-          <path d="M40 32 L35 30" stroke="#000000" strokeWidth="0.5" />
-          <path d="M40 33 L35 33" stroke="#000000" strokeWidth="0.5" />
-          <path d="M40 34 L35 36" stroke="#000000" strokeWidth="0.5" />
-          
-          <path d="M60 32 L65 30" stroke="#000000" strokeWidth="0.5" />
-          <path d="M60 33 L65 33" stroke="#000000" strokeWidth="0.5" />
-          <path d="M60 34 L65 36" stroke="#000000" strokeWidth="0.5" />
+        <g className={isAnimating ? 'animate-[pixelShift_2s_ease-in-out_infinite]' : ''}>
+          <rect x="3" y="7" width="2" height="1" fill="#000000" opacity="0.5" />
+          <rect x="11" y="7" width="2" height="1" fill="#000000" opacity="0.5" />
         </g>
         
         {/* Aletas */}
-        <path 
-          d="M25 60 Q20 65 25 70" 
-          fill="#708090"
-          className={isAnimating ? 'animate-[sealFlippers_1.5s_ease-in-out_infinite]' : ''}
+        <rect 
+          x="3" 
+          y="10" 
+          width="2" 
+          height="2" 
+          fill="#A9A9A9"
+          className={isAnimating ? 'animate-[pixelWag_1s_ease-in-out_infinite]' : ''}
         />
-        <path 
-          d="M75 60 Q80 65 75 70" 
-          fill="#708090"
-          className={isAnimating ? 'animate-[sealFlippers_1.5s_ease-in-out_infinite]' : ''}
+        <rect 
+          x="11" 
+          y="10" 
+          width="2" 
+          height="2" 
+          fill="#A9A9A9"
+          className={isAnimating ? 'animate-[pixelWag_1s_ease-in-out_infinite]' : ''}
         />
         
         {/* Cola */}
-        <path 
-          d="M50 85 Q55 90 50 95" 
-          fill="#708090"
-          className={isAnimating ? 'animate-[sealTail_2s_ease-in-out_infinite]' : ''}
-        />
+        <rect x="7" y="13" width="2" height="1" fill="#A9A9A9" />
       </svg>
     </div>
   );
@@ -89,33 +91,23 @@ export default Seal;
 
 // Añadir estos estilos en tu archivo global.css
 /*
-@keyframes sealBounce {
+@keyframes pixelWag {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px) rotate(15deg); }
+}
+
+@keyframes pixelBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+
+@keyframes pixelShift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px); }
+}
+
+@keyframes pixelBounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-@keyframes sealNod {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(5deg); }
-}
-
-@keyframes sealBlink {
-  0%, 90%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
-}
-
-@keyframes sealWhiskers {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(3deg); }
-}
-
-@keyframes sealFlippers {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-10deg); }
-}
-
-@keyframes sealTail {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(5deg); }
+  50% { transform: translateY(-1px); }
 }
 */
