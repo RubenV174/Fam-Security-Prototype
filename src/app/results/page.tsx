@@ -40,6 +40,13 @@ const analyzeSentiment = (report: string): { positivo: number; negativo: number;
 };
 
 export default function ResultsPage() {
+  const [logoVariant, setLogoVariant] = useState<'light' | 'dark'>('light');
+
+  function handleToggle() {
+    document.documentElement.classList.toggle('dark');
+    setLogoVariant((prev) => (prev === 'light' ? 'dark' : 'light'));
+  }
+
   const [result, setResult] = useState<GenerateRiskAssessmentReportOutput | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -68,12 +75,11 @@ export default function ResultsPage() {
       setError("No se encontraron resultados almacenados. Por favor, completa el test primero.");
       setResult(null);
       setIsLoading(false);
-      // Optional: Redirect after a delay if no results found
       const timer = setTimeout(() => {
-        if (!localStorage.getItem('riskAssessmentResult')) { // Double check before redirecting
+        if (!localStorage.getItem('riskAssessmentResult')) {
           router.push('/test');
         }
-      }, 5000); // Increased delay
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [router]);
@@ -81,11 +87,10 @@ export default function ResultsPage() {
   const sentimentData = useMemo(() => {
     if (!result?.report) return [];
     const sentiment = analyzeSentiment(result.report);
-    // Using theme colors for chart bars
     return [
-      { name: 'Positivo', value: sentiment.positivo, fill: 'hsl(var(--chart-1))' }, // Primary color (Blue)
-      { name: 'Preocupación', value: sentiment.negativo, fill: 'hsl(var(--destructive))' }, // Destructive color (Orange)
-      { name: 'Neutral', value: sentiment.neutral, fill: 'hsl(var(--muted-foreground))' }, // Muted grey
+      { name: 'Positivo', value: sentiment.positivo, fill: 'hsl(var(--chart-1))' },
+      { name: 'Preocupación', value: sentiment.negativo, fill: 'hsl(var(--destructive))' },
+      { name: 'Neutral', value: sentiment.neutral, fill: 'hsl(var(--muted-foreground))' },
     ];
   }, [result]);
 
@@ -100,25 +105,23 @@ export default function ResultsPage() {
           try {
             const url = new URL(item);
             return { type: 'link', value: url.toString(), key: key };
-          } catch (_) { /* Fallback to text if URL parsing fails */ }
+          } catch (_) {}
         }
         return { type: 'text', value: item, key: key };
       });
   }, [result]);
 
   const handleRetakeTest = () => {
-    localStorage.removeItem('riskAssessmentResult'); // Clear stored results
-    router.push('/test'); // Go back to the test page
+    localStorage.removeItem('riskAssessmentResult');
+    router.push('/test');
   };
 
-  // Loading State UI
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background/90 to-primary/10 dark:from-background dark:via-background/90 dark:to-primary/20">
-        <Header />
+        <Header logoVariant={logoVariant} onToggleMode={handleToggle} />
         <main className="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
           <div className="text-center">
-            {/* Use primary color for loader */}
             <Loader2 className="h-12 w-12 text-primary animate-spin mx-auto mb-4" />
             <p className="text-muted-foreground text-lg">Cargando resultados...</p>
           </div>
@@ -127,11 +130,10 @@ export default function ResultsPage() {
     );
   }
 
-  // Error State UI
   if (error) {
     return (
       <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background/90 to-destructive/10 dark:from-background dark:via-background/90 dark:to-destructive/20">
-        <Header />
+        <Header logoVariant={logoVariant} onToggleMode={handleToggle} />
         <main className="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
           <Card className="w-full max-w-lg shadow-lg rounded-xl animate-fadeIn border border-destructive/50">
             <CardHeader className="items-center">
@@ -144,7 +146,6 @@ export default function ResultsPage() {
               </Alert>
             </CardContent>
             <CardFooter className="justify-center pt-6">
-              {/* Button uses destructive variant */}
               <Button onClick={() => router.push('/test')} variant="destructive">
                 Volver al Test
               </Button>
@@ -155,17 +156,15 @@ export default function ResultsPage() {
     );
   }
 
-  // Results Display UI
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background/90 to-primary/10 dark:from-background dark:via-background/90 dark:to-primary/20">
-      <Header />
+      <Header logoVariant={logoVariant} onToggleMode={handleToggle} />
       <main className="flex-grow container mx-auto px-4 py-8">
         <Card className="w-full max-w-3xl lg:max-w-4xl mx-auto shadow-xl rounded-xl animate-fadeIn border border-border/50">
           <CardHeader className="p-4 sm:p-6">
             <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-semibold text-center mb-3">Tu Informe de Evaluación</CardTitle>
-            {/* Info Alert using primary color accents */}
             <Alert variant="default" className="bg-primary/10 border-primary/30 text-primary-foreground dark:bg-primary/20 dark:border-primary/40 dark:text-foreground">
-              <Info className="h-4 w-4 stroke-primary" /> {/* Icon uses primary color */}
+              <Info className="h-4 w-4 stroke-primary" />
               <AlertTitle className="font-semibold text-primary">Nota Importante</AlertTitle>
               <AlertDescription className="text-sm text-foreground/90">
                 Esta es una herramienta de reflexión. No sustituye el consejo profesional. Si necesitas apoyo urgente, contacta servicios de emergencia o una línea de ayuda. Los recursos abajo pueden ser útiles.
@@ -179,8 +178,6 @@ export default function ResultsPage() {
                 <TabsTrigger value="visualization" className="text-xs sm:text-sm">Resumen Visual</TabsTrigger>
                 <TabsTrigger value="resources" className="text-xs sm:text-sm">Recursos</TabsTrigger>
               </TabsList>
-
-              {/* Tab Content Panels */}
               <TabsContent value="report">
                 <Card className="border-border/50 shadow-inner">
                   <CardHeader>
@@ -195,7 +192,6 @@ export default function ResultsPage() {
                   </CardContent>
                 </Card>
               </TabsContent>
-
               <TabsContent value="visualization">
                 <Card className="border-border/50 shadow-inner">
                   <CardHeader>
@@ -205,7 +201,6 @@ export default function ResultsPage() {
                   <CardContent className="h-[300px] sm:h-[350px] p-2 sm:p-4">
                     {sentimentData.length > 0 ? (
                       <ResponsiveContainer width="100%" height="100%">
-                        {/* Chart uses theme colors defined by sentimentData */}
                         <BarChart data={sentimentData} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
                           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                           <XAxis dataKey="name" stroke="hsl(var(--foreground))" fontSize={11} tickLine={false} axisLine={false} />
@@ -227,7 +222,6 @@ export default function ResultsPage() {
                   </CardContent>
                 </Card>
               </TabsContent>
-
               <TabsContent value="resources">
                 <Card className="border-border/50 shadow-inner">
                   <CardHeader>
@@ -242,10 +236,8 @@ export default function ResultsPage() {
                             <li key={resource.key} className="flex items-start space-x-3 border-b border-border/50 pb-3 last:border-b-0">
                               {resource.type === 'link' ? (
                                 <>
-                                  {/* Icon uses primary color */}
                                   <ExternalLink className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
                                   <div>
-                                    {/* Link uses primary color */}
                                     <a
                                       href={resource.value}
                                       target="_blank"

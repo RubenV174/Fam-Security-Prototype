@@ -13,9 +13,7 @@ import Header from '@/components/Header';
 import { generateRiskAssessmentReportAction } from '@/lib/actions';
 import type { GenerateRiskAssessmentReportOutput } from '@/ai/flows/generate-risk-assessment-report';
 import Image from 'next/image';
-import { cn } from '@/lib/utils'; // Import cn utility
-
-// Simplified Animated Placeholder for Illustrations
+import { cn } from '@/lib/utils';
 import VirtualPet from '@/components/pets/VirtualPet';
 
 const AnimatedIllustrationPlaceholder = ({ id }: { id: number }) => {
@@ -143,6 +141,13 @@ const questions: Question[] = [
 ];
 
 export default function TestPage() {
+  const [logoVariant, setLogoVariant] = useState<'light' | 'dark'>('light');
+
+  function handleToggle() {
+    document.documentElement.classList.toggle('dark');
+    setLogoVariant((prev) => (prev === 'light' ? 'dark' : 'light'));
+  }
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -155,133 +160,108 @@ export default function TestPage() {
 
   const handleOptionChange = useCallback((value: string) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
-     setError(null); // Clear error when an option is selected
+    setError(null);
   }, [currentQuestion]);
 
   const handleNext = useCallback(() => {
-    // Check if an answer is selected for the current question
     if (answers[currentQuestion.id]) {
-       if (currentQuestionIndex < questions.length - 1) {
-         setCurrentQuestionIndex((prev) => prev + 1);
-         setError(null); // Clear error on successful navigation
-       }
-       // If it's the last question, the button will change to "Submit"
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex((prev) => prev + 1);
+        setError(null);
+      }
     } else {
-       // Set error if no option is selected
-       setError("Por favor, selecciona una opción para continuar.");
+      setError("Por favor, selecciona una opción para continuar.");
     }
   }, [currentQuestionIndex, answers, currentQuestion]);
-
 
   const handlePrevious = useCallback(() => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex((prev) => prev - 1);
-      setError(null); // Clear error when going back
+      setError(null);
     }
   }, [currentQuestionIndex]);
 
   const handleSubmit = useCallback(async () => {
-    // Final check to ensure all questions are answered before submitting
     if (Object.keys(answers).length !== questions.length) {
-        // Find the first unanswered question and navigate to it
-        const firstUnanswered = questions.find(q => !answers[q.id]);
-        if (firstUnanswered) {
-            setCurrentQuestionIndex(questions.findIndex(q => q.id === firstUnanswered.id));
-        }
-        setError("Por favor, responde todas las preguntas antes de enviar.");
-        return; // Stop submission
+      const firstUnanswered = questions.find((q) => !answers[q.id]);
+      if (firstUnanswered) {
+        setCurrentQuestionIndex(questions.findIndex((q) => q.id === firstUnanswered.id));
+      }
+      setError("Por favor, responde todas las preguntas antes de enviar.");
+      return;
     }
 
     setIsLoading(true);
-    setIsSubmitting(true); // Indicate submission process started
+    setIsSubmitting(true);
     setError(null);
 
-    // Format answers for the AI flow input
     const formattedAnswers = JSON.stringify(
-       questions.map(q => ({
-         id: q.id,
-         question: q.text,
-         type: q.type,
-         answer: answers[q.id] || 'No respondido' // Fallback, though validation should prevent this
-       }))
+      questions.map((q) => ({
+        id: q.id,
+        question: q.text,
+        type: q.type,
+        answer: answers[q.id] || 'No respondido',
+      }))
     );
 
     try {
-        // Call the server action
-        const result: GenerateRiskAssessmentReportOutput = await generateRiskAssessmentReportAction({
-           testResponses: formattedAnswers,
-        });
+      const result: GenerateRiskAssessmentReportOutput = await generateRiskAssessmentReportAction({
+        testResponses: formattedAnswers,
+      });
 
-        console.log("Resultado de generación de informe:", result);
-
-        // Check if the flow returned an error message within the report field
-        if (result && result.report && result.report.startsWith('Error')) {
-          throw new Error(result.report); // Propagate flow-specific error
-        }
-
-        // Basic validation of the result structure
-        if (result && result.report && result.resources !== undefined) {
-           // Store result in localStorage
-           localStorage.setItem('riskAssessmentResult', JSON.stringify(result));
-           // Navigate to the results page
-           router.push('/results');
-        } else {
-           // Construct a more specific error message if structure is wrong
-           let errorMsg = 'Respuesta inesperada al generar el informe.';
-           if (!result?.report) errorMsg += ' Falta el contenido del informe.';
-           if (result?.resources === undefined) errorMsg += ' Faltan los recursos.';
-           throw new Error(errorMsg);
-        }
-
+      if (result && result.report && result.resources !== undefined) {
+        localStorage.setItem('riskAssessmentResult', JSON.stringify(result));
+        router.push('/results');
+      } else {
+        let errorMsg = 'Respuesta inesperada al generar el informe.';
+        if (!result?.report) errorMsg += ' Falta el contenido del informe.';
+        if (result?.resources === undefined) errorMsg += ' Faltan los recursos.';
+        throw new Error(errorMsg);
+      }
     } catch (err: any) {
-        console.error("Error al enviar el test:", err);
-        setError(err.message || "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
-        setIsSubmitting(false); // Allow retry if submission failed
+      setError(err.message || "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
+      setIsSubmitting(false);
     } finally {
-        // Only set isLoading to false. isSubmitting remains true on success
-        // to prevent double clicks during the navigation process.
-        setIsLoading(false);
+      setIsLoading(false);
     }
   }, [answers, router]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background/90 to-primary/10 dark:from-background dark:via-background/90 dark:to-primary/20">
-      <Header />
+      {/* Implementación del Header con el botón */}
+      <Header logoVariant={logoVariant} onToggleMode={handleToggle} />
       <main className="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
         {/* Card container */}
         <Card className="w-full max-w-md md:max-w-lg shadow-xl rounded-xl animate-fadeIn border border-border/50">
           <CardHeader className="p-4 sm:p-6">
-            {/* Use primary color for progress bar */}
             <Progress value={progressValue} className="mb-4 h-2 [&>div]:bg-primary" />
-            <CardTitle className="text-lg sm:text-xl font-semibold text-center mb-1">Pregunta {currentQuestion.id} de {questions.length}</CardTitle>
-             {/* Question Area with background */}
-             <div className="my-4 p-4 bg-muted/40 rounded-lg border border-border/30">
-                 {/* Image for interpretation questions */}
-                 {currentQuestion.type === 'image-interpretation' && currentQuestion.imageSrc && (
-                    <div className="mb-4 rounded-lg overflow-hidden border shadow-sm aspect-video relative">
-                         <Image
-                             src={currentQuestion.imageSrc}
-                             alt={`Imagen para la pregunta ${currentQuestion.id}`}
-                             fill // Use fill for responsive sizing
-                             style={{ objectFit: 'cover' }} // Cover the area
-                             priority={currentQuestionIndex < 2} // Prioritize loading early images
-                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Responsive image sizes
-                             unoptimized={false} // Allow Next.js optimization
-                             data-ai-hint={currentQuestion.imageHint || 'abstract family scene'} // Add the AI hint
-                         />
-                     </div>
-                 )}
-                 {/* Illustration Placeholder for other question types */}
-                 {currentQuestion.type !== 'image-interpretation' && currentQuestion.illustration && (
-                     <div className="mb-4">
-                         {currentQuestion.illustration}
-                     </div>
-                 )}
-                 <CardDescription className="text-center text-base sm:text-lg text-foreground font-medium">{currentQuestion.text}</CardDescription>
-             </div>
+            <CardTitle className="text-lg sm:text-xl font-semibold text-center mb-1">
+              Pregunta {currentQuestion.id} de {questions.length}
+            </CardTitle>
+            <div className="my-4 p-4 bg-muted/40 rounded-lg border border-border/30">
+              {currentQuestion.type === 'image-interpretation' && currentQuestion.imageSrc && (
+                <div className="mb-4 rounded-lg overflow-hidden border shadow-sm aspect-video relative">
+                  <Image
+                    src={currentQuestion.imageSrc}
+                    alt={`Imagen para la pregunta ${currentQuestion.id}`}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    priority={currentQuestionIndex < 2}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    unoptimized={false}
+                    data-ai-hint={currentQuestion.imageHint || 'abstract family scene'}
+                  />
+                </div>
+              )}
+              {currentQuestion.type !== 'image-interpretation' && currentQuestion.illustration && (
+                <div className="mb-4">{currentQuestion.illustration}</div>
+              )}
+              <CardDescription className="text-center text-base sm:text-lg text-foreground font-medium">
+                {currentQuestion.text}
+              </CardDescription>
+            </div>
           </CardHeader>
           <CardContent className="p-4 sm:p-6 pt-0">
-            {/* Error Alert */}
             {error && (
               <Alert variant="destructive" className="mb-4 animate-shake">
                 <AlertCircle className="h-4 w-4" />
@@ -289,86 +269,76 @@ export default function TestPage() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            {/* Options Radio Group */}
-             {currentQuestion.options && (
-                 <RadioGroup
-                    key={currentQuestion.id} // Ensure re-render on question change
-                    value={answers[currentQuestion.id] || ""}
-                    onValueChange={handleOptionChange}
-                    className="space-y-3"
-                 >
-                    {currentQuestion.options.map((option) => (
-                      <Label
-                        key={option.value}
-                        htmlFor={`${currentQuestion.id}-${option.value}`}
-                        // Use cn for conditional styling based on selection
-                        className={cn(
-                            "flex items-center space-x-3 p-3 sm:p-4 border rounded-lg transition-all duration-200 cursor-pointer hover:bg-accent hover:border-primary/50",
-                            // Highlight selected option with primary color accents
-                            answers[currentQuestion.id] === option.value
-                              ? 'bg-primary/10 border-primary ring-2 ring-primary/70 shadow-inner'
-                              : 'border-border'
-                        )}
-                        >
-                        {/* Style RadioGroupItem to use primary color */}
-                        <RadioGroupItem
-                            value={option.value}
-                            id={`${currentQuestion.id}-${option.value}`}
-                            className="h-5 w-5 border-muted-foreground text-primary focus:ring-primary"
-                        />
-                        <span className="flex-1 text-sm sm:text-base">{option.label}</span>
-                      </Label>
-                    ))}
-                  </RadioGroup>
-             )}
+            {currentQuestion.options && (
+              <RadioGroup
+                key={currentQuestion.id}
+                value={answers[currentQuestion.id] || ""}
+                onValueChange={handleOptionChange}
+                className="space-y-3"
+              >
+                {currentQuestion.options.map((option) => (
+                  <Label
+                    key={option.value}
+                    htmlFor={`${currentQuestion.id}-${option.value}`}
+                    className={cn(
+                      "flex items-center space-x-3 p-3 sm:p-4 border rounded-lg transition-all duration-200 cursor-pointer hover:bg-accent hover:border-primary/50",
+                      answers[currentQuestion.id] === option.value
+                        ? 'bg-primary/10 border-primary ring-2 ring-primary/70 shadow-inner'
+                        : 'border-border'
+                    )}
+                  >
+                    <RadioGroupItem
+                      value={option.value}
+                      id={`${currentQuestion.id}-${option.value}`}
+                      className="h-5 w-5 border-muted-foreground text-primary focus:ring-primary"
+                    />
+                    <span className="flex-1 text-sm sm:text-base">{option.label}</span>
+                  </Label>
+                ))}
+              </RadioGroup>
+            )}
           </CardContent>
           <CardFooter className="flex justify-between p-4 sm:p-6 border-t border-border/50">
-             {/* Previous Button */}
-             <Button
-                variant="outline"
-                onClick={handlePrevious}
-                disabled={currentQuestionIndex === 0 || isLoading}
-                aria-label="Pregunta anterior"
-             >
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Anterior
-             </Button>
-             {/* Next / Submit Button */}
-             {currentQuestionIndex === questions.length - 1 ? (
-               // Submit button on the last question
-               <Button
-                 onClick={handleSubmit}
-                 // Disable if no answer selected, or if loading/submitting
-                 disabled={!answers[currentQuestion.id] || isLoading || isSubmitting}
-                 aria-label="Enviar respuestas y ver informe"
-               >
-                 {isLoading ? (
-                   <>
-                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                     Generando...
-                   </>
-                 ) : (
-                    'Ver Informe'
-                 )}
-               </Button>
-             ) : (
-               // Next button for other questions
-               <Button
-                 onClick={handleNext}
-                 // Disable if no answer selected or if loading
-                 disabled={!answers[currentQuestion.id] || isLoading}
-                 aria-label="Siguiente pregunta"
-               >
-                 Siguiente
-                 <ArrowRight className="ml-2 h-4 w-4" />
-               </Button>
-             )}
+            <Button
+              variant="outline"
+              onClick={handlePrevious}
+              disabled={currentQuestionIndex === 0 || isLoading}
+              aria-label="Pregunta anterior"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Anterior
+            </Button>
+            {currentQuestionIndex === questions.length - 1 ? (
+              <Button
+                onClick={handleSubmit}
+                disabled={!answers[currentQuestion.id] || isLoading || isSubmitting}
+                aria-label="Enviar respuestas y ver informe"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Generando...
+                  </>
+                ) : (
+                  'Ver Informe'
+                )}
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNext}
+                disabled={!answers[currentQuestion.id] || isLoading}
+                aria-label="Siguiente pregunta"
+              >
+                Siguiente
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            )}
           </CardFooter>
         </Card>
       </main>
-       <footer className="text-center py-6 text-xs sm:text-sm text-muted-foreground">
-         Fam Security - Un paso hacia el bienestar familiar
-       </footer>
+      <footer className="text-center py-6 text-xs sm:text-sm text-muted-foreground">
+        Fam Security - Un paso hacia el bienestar familiar
+      </footer>
     </div>
   );
 }

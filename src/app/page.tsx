@@ -23,7 +23,7 @@ export default function HomePage() {
   return (
     // Adjusted gradient to use primary color subtly
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-background via-background/90 to-primary/10 dark:from-background dark:via-background/90 dark:to-primary/20">
-      <Header logoVariant={logoVariant} />
+      <Header logoVariant={logoVariant} onToggleMode={handleToggle} />
       <main className="flex-grow container mx-auto px-4 py-12 sm:py-16 md:py-24 flex flex-col items-center justify-center text-center">
 
         {/* Use primary color for the main icon */}
@@ -62,10 +62,6 @@ export default function HomePage() {
             </Link>
           </CardContent>
         </Card>
-
-        <Button onClick={handleToggle} className="mt-4 animate-fadeIn [animation-delay:0.6s]">
-          Cambiar Modo y Logo
-        </Button>
 
       </main>
       <footer className="text-center py-6 text-xs sm:text-sm text-muted-foreground">
