@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import TestPage from './pagina_evaluacion';
+import ResultsPage from './pagina_informe';
 
 export default function Page() {
-  return <TestPage />;
+  return <ResultsPage />;
 }

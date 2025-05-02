@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from "@/componentes/ui/toaster";
+import { Toaster } from "@/components/ui/toaster";
 
 // Setup Inter font with CSS variable
 const inter = Inter({

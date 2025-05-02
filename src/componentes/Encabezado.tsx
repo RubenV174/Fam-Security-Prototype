@@ -1,11 +1,12 @@
 import type { FC } from 'react';
-import Logo from './Logo';
+import Logo from '@/components/Logo';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
+
 interface HeaderProps {
   logoVariant?: 'light' | 'dark';
-  onToggleMode?: () => void;
+  onToggleMode?: () => void; // Asegúrate de incluir esta línea
 }
 
 const Header: FC<HeaderProps> = ({ logoVariant = 'light', onToggleMode }) => {

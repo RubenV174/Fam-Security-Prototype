@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // La opción experimental ya no es necesaria en Next.js 15+ ya que appDir es el comportamiento predeterminado
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
 };
 
 export default nextConfig;

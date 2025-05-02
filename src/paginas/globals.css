@@ -1,0 +1,379 @@
+/* Import Tailwind base styles */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.some-custom-class {
+  /* Add at least one property to avoid empty ruleset */
+  display: block;
+}
+  /* Define the custom class properties here */
+/* Remove extra closing brace */
+
+@keyframes pandaBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes pandaHead {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes pandaBlink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes pandaEars {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes pandaTail {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-10deg); }
+}
+
+@keyframes wag {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+}
+
+@keyframes blink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes catTail {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-20deg); }
+}
+
+@keyframes catBlink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes whiskers {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+}
+@layer base {
+  :root {
+    /* Updated theme colors based on new logo */
+    --background: 240 10% 98%; /* Keep light grey background */
+    --foreground: 240 8% 10%; /* Keep dark grey text */
+
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 240 8% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 8% 10%;
+
+    /* --- Core Color Updates --- */
+    --primary: 231 53% 48%; /* Logo Blue (approx #3F51B5) */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+
+    /* Using Logo Orange for destructive elements, consider if another role is better */
+    --destructive: 18 88% 54%; /* Logo Orange (approx #F26422) */
+    --destructive-foreground: 0 0% 100%; /* White text on destructive */
+
+    /* Adjust secondary and muted for harmony */
+    --secondary: 230 20% 96%; /* Lighter, cooler grey */
+    --secondary-foreground: 240 6% 10%;
+
+    --muted: 230 20% 96%;
+    --muted-foreground: 240 4% 46%;
+
+    /* Accent for hover states - could be a lighter blue or grey */
+    --accent: 230 20% 94%; /* Slightly darker cool grey */
+    --accent-foreground: 240 6% 10%;
+
+    /* --- Borders and Rings --- */
+    --border: 230 15% 90%; /* Cooler grey border */
+    --input: 230 15% 90%;
+    --ring: 231 53% 48%; /* Logo Blue for focus rings */
+
+    /* --- Charts --- */
+    --chart-1: 231 53% 48%; /* Logo Blue */
+    --chart-2: 18 88% 54%;  /* Logo Orange */
+    --chart-3: 197 37% 50%; /* Teal/Cyan - keep for variety */
+    --chart-4: 43 74% 66%;  /* Yellow - keep for variety */
+    --chart-5: 270 50% 60%; /* Purple - keep for variety */
+
+    /* --- Radius --- */
+    --radius: 0.75rem; /* Keep iOS like rounded corners */
+
+    /* --- Sidebar --- */
+    --sidebar-background: 240 10% 98%;
+    --sidebar-foreground: 240 8% 10%;
+    --sidebar-primary: 231 53% 48%; /* Logo Blue */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 20% 94%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 230 15% 90%;
+    --sidebar-ring: 231 53% 48%;
+  }
+
+  .dark {
+    /* Dark Mode Variables - Adjusted for new logo colors */
+    --background: 240 6% 10%; /* Dark grey */
+    --foreground: 0 0% 98%; /* Light grey/white */
+
+    --card: 240 5% 11%; /* Slightly lighter dark grey */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 6% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    /* --- Core Color Updates (Dark) --- */
+    --primary: 231 53% 58%; /* Lighter Logo Blue for dark mode contrast */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    /* Destructive Orange needs good contrast in dark mode */
+    --destructive: 18 88% 60%; /* Slightly brighter Logo Orange */
+    --destructive-foreground: 0 0% 10%; /* Dark text on orange */
+
+    /* Adjust secondary and muted for dark harmony */
+    --secondary: 240 4% 16%; /* Darker grey */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+
+    /* Darker accent for hover */
+    --accent: 240 4% 18%;
+    --accent-foreground: 0 0% 98%;
+
+    /* --- Borders and Rings (Dark) --- */
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 231 53% 58%; /* Lighter Logo Blue */
+
+    /* --- Charts (Dark) --- */
+    /* Use slightly brighter versions for dark mode */
+    --chart-1: 231 53% 58%;
+    --chart-2: 18 88% 60%;
+    --chart-3: 197 37% 60%;
+    --chart-4: 43 74% 70%;
+    --chart-5: 270 50% 70%;
+
+    /* --- Sidebar (Dark) --- */
+    --sidebar-background: 240 6% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 231 53% 58%; /* Lighter Logo Blue */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 4% 18%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 4% 16%;
+    --sidebar-ring: 231 53% 58%;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Ensure the font-family defined in tailwind.config.ts is used */
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+  /* Animaciones para el perro */
+  @keyframes wag {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+  }
+
+  @keyframes blink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+  }
+
+  /* Animaciones para el gato */
+  @keyframes catTail {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-20deg); }
+  }
+  
+  /* Animaciones para Stardew Valley Pets */
+  @keyframes stardewIdle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  
+  @keyframes stardewWalk {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  
+  @keyframes stardewEarTwitch {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    95% { transform: rotate(-5deg); }
+  }
+  
+  @keyframes stardewTailWag {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+  }
+  
+  @keyframes pixelShift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(2px); }
+  }
+  
+  @keyframes pixelBlink {
+    0%, 90%, 100% { opacity: 1; }
+    95% { opacity: 0; }
+  }
+  
+  @keyframes pixelBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+
+  @keyframes catBlink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+  }
+
+  @keyframes whiskers {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  /* Animaciones para la foca */
+  @keyframes sealBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes sealNod {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  @keyframes sealBlink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+  }
+
+  @keyframes sealWhiskers {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  @keyframes sealFlippers {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-10deg); }
+  }
+
+  @keyframes sealTail {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  /* Animaciones para el panda rojo */
+  @keyframes pandaBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes pandaHead {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  @keyframes pandaBlink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+  }
+
+  @keyframes pandaEars {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  @keyframes pandaTail {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-10deg); }
+  }
+  
+  /* Animaciones para mascotas pixelart */
+  @keyframes pixelWag {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(1px) rotate(15deg); }
+  }
+
+  @keyframes pixelBlink {
+    0%, 90%, 100% { opacity: 1; }
+    95% { opacity: 0; }
+  }
+
+  @keyframes pixelShift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(1px); }
+  }
+
+  @keyframes pixelBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+  }
+  
+  /* Animaciones adicionales para mascotas estilo Stardew Valley */
+  @keyframes stardewWalk {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(2px) translateY(-1px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(2px) translateY(-1px); }
+  }
+  
+  @keyframes stardewIdle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  
+  @keyframes stardewTailWag {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(15deg); }
+  }
+  
+  @keyframes stardewEarTwitch {
+    0%, 90%, 100% { transform: rotate(0deg); }
+    95% { transform: rotate(10deg); }
+  }
+  
+  @keyframes stardewHeadTilt {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+  
+  @keyframes stardewBlink {
+    0%, 85%, 100% { transform: scaleY(1); }
+    90% { transform: scaleY(0.2); }
+  }
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add subtle transition for color changes */
+body, button, input, select, textarea, .bg-background, .bg-card, .bg-popover, .bg-primary, .bg-secondary, .bg-muted, .bg-accent, .bg-destructive, .border {
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Custom focus styling for better visibility */
+*:focus-visible {
+    outline: none;
+    --ring-width: 2px;
+    --ring-offset-width: 2px;
+    box-shadow: 0 0 0 var(--ring-offset-width) hsl(var(--background)),
+                0 0 0 calc(var(--ring-offset-width) + var(--ring-width)) hsl(var(--ring));
+}
+
+/* Keyframes can be defined directly in tailwind.config.js */

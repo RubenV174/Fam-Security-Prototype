@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import VirtualPet from '@/componentes/pets/VirtualPet';
+import VirtualPet from '@/components/pets/VirtualPet';
 
 export default function StardewPetsDemo() {
   const [isWalking, setIsWalking] = useState(false);
