@@ -3,10 +3,12 @@ import { cn } from '@/lib/utils';
 
 interface CatProps extends React.SVGProps<SVGSVGElement> {
   isAnimating?: boolean;
+  isWalking?: boolean;
 }
 
 const Cat: React.FC<CatProps> = ({ 
   isAnimating = true,
+  isWalking = false,
   className, 
   ...props 
 }) => {
@@ -14,6 +16,7 @@ const Cat: React.FC<CatProps> = ({
     <div className={cn(
       'relative w-40 h-40 transition-all duration-300',
       isAnimating && 'hover:scale-110',
+      isWalking && isAnimating && 'animate-[catWalk_0.4s_ease-in-out_infinite]',
       className
     )}>
       <svg
@@ -63,8 +66,8 @@ const Cat: React.FC<CatProps> = ({
         />
         
         {/* Patas */}
-        <rect x="5" y="13" width="1" height="2" fill="#808080" />
-        <rect x="10" y="13" width="1" height="2" fill="#808080" />
+        <rect x="5" y="13" width="1" height="2" fill="#808080" className={isWalking && isAnimating ? 'animate-[pixelBounce_0.4s_ease-in-out_infinite]' : ''} />
+        <rect x="10" y="13" width="1" height="2" fill="#808080" className={isWalking && isAnimating ? 'animate-[pixelBounce_0.4s_ease-in-out_infinite_0.2s]' : ''} />
       </svg>
     </div>
   );
@@ -92,5 +95,12 @@ export default Cat;
 @keyframes pixelBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-1px); }
+}
+
+@keyframes catWalk {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(1px) translateY(-1px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(1px) translateY(-1px); }
 }
 */

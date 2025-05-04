@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import VirtualPet from '@/componentes/pets/VirtualPet';
+import VirtualPet from '@/components/pets/VirtualPet';
 
-export default function StardewPetsDemo() {
+export default function PetsDemo() {
   const [isWalking, setIsWalking] = useState(false);
   
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Mascotas Estilo Stardew Valley</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Mascotas Virtuales Animadas</h1>
       
       <div className="flex flex-col items-center mb-8">
         <button 
@@ -25,42 +25,42 @@ export default function StardewPetsDemo() {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Vaca</h2>
+          <h2 className="text-xl font-semibold mb-4">Perro</h2>
           <div className="bg-[#f0f0f0] p-4 rounded-lg mb-4 flex items-center justify-center h-48 w-full">
-            <VirtualPet petType="stardew-cow" isAnimating={true} isWalking={isWalking} />
+            <VirtualPet petType="dog" isAnimating={true} isWalking={isWalking} />
           </div>
           <p className="text-sm text-muted-foreground text-center">
-            Vaca detallada con manchas y animaciones suaves
+            Perro con animaciones de cola y patas al caminar
           </p>
         </div>
         
         <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Gallina</h2>
+          <h2 className="text-xl font-semibold mb-4">Gato</h2>
           <div className="bg-[#f0f0f0] p-4 rounded-lg mb-4 flex items-center justify-center h-48 w-full">
-            <VirtualPet petType="stardew-chicken" isAnimating={true} isWalking={isWalking} />
+            <VirtualPet petType="cat" isAnimating={true} isWalking={isWalking} />
           </div>
           <p className="text-sm text-muted-foreground text-center">
-            Gallina con cresta roja y animaciones de aleteo
+            Gato con movimientos elegantes y bigotes animados
           </p>
         </div>
         
         <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Conejo</h2>
+          <h2 className="text-xl font-semibold mb-4">Foca</h2>
           <div className="bg-[#f0f0f0] p-4 rounded-lg mb-4 flex items-center justify-center h-48 w-full">
-            <VirtualPet petType="stardew-rabbit" isAnimating={true} isWalking={isWalking} />
+            <VirtualPet petType="seal" isAnimating={true} isWalking={isWalking} />
           </div>
           <p className="text-sm text-muted-foreground text-center">
-            Conejo con orejas largas y animación de salto
+            Foca con movimientos ondulantes y aletas animadas
           </p>
         </div>
         
         <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Ciervo</h2>
+          <h2 className="text-xl font-semibold mb-4">Panda Rojo</h2>
           <div className="bg-[#f0f0f0] p-4 rounded-lg mb-4 flex items-center justify-center h-48 w-full">
-            <VirtualPet petType="stardew-deer" isAnimating={true} isWalking={isWalking} />
+            <VirtualPet petType="redPanda" isAnimating={true} isWalking={isWalking} />
           </div>
           <p className="text-sm text-muted-foreground text-center">
-            Ciervo con astas y manchas blancas detalladas
+            Panda rojo con cola rayada y animaciones fluidas
           </p>
         </div>
       </div>
@@ -68,12 +68,12 @@ export default function StardewPetsDemo() {
       <div className="mt-12 p-6 bg-muted rounded-lg">
         <h2 className="text-2xl font-bold mb-4">Sobre estas mascotas</h2>
         <p className="mb-4">
-          Estas mascotas virtuales están inspiradas en el estilo pixel art de Stardew Valley, con animaciones detalladas 
+          Estas mascotas virtuales están diseñadas con un estilo pixel art minimalista, con animaciones detalladas 
           y características únicas para cada animal.
         </p>
         <p>
-          Cada mascota tiene animaciones de caminar y estar parado, con detalles como parpadeo, movimiento de cola y 
-          pequeños movimientos que les dan vida y personalidad.
+          Cada mascota tiene animaciones mejoradas de caminar y estar parado, con detalles como parpadeo, movimiento de cola y 
+          animaciones de patas que simulan un movimiento realista al caminar, dándoles vida y personalidad.
         </p>
       </div>
     </div>

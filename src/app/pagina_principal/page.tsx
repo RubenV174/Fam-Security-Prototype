@@ -1,16 +1,20 @@
 "use client";
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Button } from "@/componentes/ui/boton";
 import Header from "@/componentes/Encabezado";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/componentes/ui/tarjeta';
-import { ShieldCheck, Users, ArrowRight } from 'lucide-react';
-import VirtualPet from '@/componentes/pets/VirtualPet';
+import { ShieldCheck, Users, ArrowRight, Loader2, CheckCircle } from 'lucide-react';
+import CentralPetArea from '@/components/pets/CentralPetArea';
 import Logo from '@/componentes/LogoEmpresa';
 
 export default function HomePage() {
-  //Camina de estado para el modo oscuro
+  //Estado para el modo oscuro
   const [logoVariant, setLogoVariant] = useState<'light' | 'dark'>('light');
+  // Estados para el botón de inicio
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const router = useRouter();
 
   // Manejador para cambiar el modo oscuro y el logo
   function handleToggle() {
@@ -28,8 +32,12 @@ export default function HomePage() {
 
         {/* Use primary color for the main icon */}
         <div className="flex flex-col items-center mb-8">
-          <VirtualPet petType="dog" className="mb-4" />
           <ShieldCheck className="h-16 w-16 sm:h-20 sm:w-20 text-primary animate-bounce" />
+        </div>
+        
+        {/* Área central con mascota interactiva - posicionada para no interferir con el contenido */}
+        <div className="fixed inset-0 pointer-events-none z-30">
+          <CentralPetArea activePetType="dog" showInTest={false} />
         </div>
 
         <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl mb-4 animate-fadeIn">
@@ -52,14 +60,53 @@ export default function HomePage() {
             <p className="text-xs sm:text-sm text-muted-foreground mb-4">
               Haz clic abajo para comenzar la evaluación interactiva. Solo toma unos minutos.
             </p>
-            <Link href="/test" passHref>
-            
-            {/* Botón de cambio de modo oscuro y claro */}
-              <Button size="lg" className="w-full sm:w-auto">
-                Iniciar Test
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+            {/* Reemplazamos el Link por un botón con estados */}
+              <Button 
+                size="lg" 
+                className="w-full sm:w-auto relative" 
+                onClick={async () => {
+                  try {
+                    // Activar estado de carga
+                    setIsLoading(true);
+                    
+                    // Simular una pequeña carga para mostrar la animación
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    
+                    // Mostrar palomita de éxito
+                    setIsSuccess(true);
+                    
+                    // Esperar un momento para mostrar la palomita
+                    await new Promise(resolve => setTimeout(resolve, 600));
+                    
+                    // Redirigir al test
+                    router.push('/test');
+                  } catch (error) {
+                    console.error('Error al iniciar el test:', error);
+                    setIsLoading(false);
+                    setIsSuccess(false);
+                  }
+                }}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  isSuccess ? (
+                    <>
+                      <CheckCircle className="h-5 w-5 text-white animate-pulse" />
+                      <span className="ml-2">Completado</span>
+                    </>
+                  ) : (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Iniciando...
+                    </>
+                  )
+                ) : (
+                  <>
+                    Iniciar Test
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  </>
+                )}
               </Button>
-            </Link>
           </CardContent>
         </Card>
 

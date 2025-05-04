@@ -4,12 +4,11 @@ import Dog from './Dog';
 import Cat from './Cat';
 import Seal from './Seal';
 import RedPanda from './RedPanda';
-import StardewPets from './StardewPets';
 
 interface VirtualPetProps extends React.HTMLAttributes<HTMLDivElement> {
   isAnimating?: boolean;
   isWalking?: boolean;
-  petType: 'dog' | 'cat' | 'seal' | 'redPanda' | 'stardew-cow' | 'stardew-chicken' | 'stardew-rabbit' | 'stardew-deer';
+  petType: 'dog' | 'cat' | 'seal' | 'redPanda';
 }
 
 const VirtualPet: React.FC<VirtualPetProps> = ({ 
@@ -28,23 +27,7 @@ const VirtualPet: React.FC<VirtualPetProps> = ({
 
   const PetComponent = PetComponents[petType as keyof typeof PetComponents];
 
-  // Manejar los animales de Stardew Valley
-  if (petType.startsWith('stardew-')) {
-    const stardewType = petType.replace('stardew-', '') as 'cow' | 'chicken' | 'rabbit' | 'deer';
-    return (
-      <div className={cn(
-        'relative w-40 h-40 transition-transform',
-        className
-      )}>
-        <StardewPets
-          petType={stardewType}
-          isAnimating={isAnimating}
-          isWalking={isWalking}
-          className="w-full h-full"
-        />
-      </div>
-    );
-  }
+
   
   if (!PetComponent) {
     return null;
@@ -58,6 +41,7 @@ const VirtualPet: React.FC<VirtualPetProps> = ({
       )}>
         <PetComponent
           isAnimating={isAnimating}
+          isWalking={isWalking}
           className="w-full h-full"
         />
       </div>

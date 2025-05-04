@@ -59,6 +59,54 @@
   0%, 100% { transform: rotate(0deg); }
   50% { transform: rotate(2deg); }
 }
+
+@keyframes pixelWag {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px) rotate(15deg); }
+}
+
+@keyframes pixelBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+
+@keyframes pixelShift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px); }
+}
+
+@keyframes pixelBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+@keyframes dogWalk {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(2px) translateY(-1px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(2px) translateY(-1px); }
+}
+
+@keyframes catWalk {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(1px) translateY(-1px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(1px) translateY(-1px); }
+}
+
+@keyframes sealWalk {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(2px) translateY(-2px); }
+  50% { transform: translateX(4px) translateY(0); }
+  75% { transform: translateX(2px) translateY(-2px); }
+}
+
+@keyframes pandaWalk {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(2px) translateY(-1px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(2px) translateY(-1px); }
+}
 @layer base {
   :root {
     /* Updated theme colors based on new logo */
@@ -206,8 +254,11 @@
   }
   
   @keyframes stardewWalk {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-2px) rotate(2deg); }
+    50% { transform: translateY(-4px) rotate(0deg); }
+    75% { transform: translateY(-2px) rotate(-2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
   }
   
   @keyframes stardewEarTwitch {
@@ -231,8 +282,11 @@
   }
   
   @keyframes pixelBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-2px); }
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-1px) rotate(3deg); }
+    50% { transform: translateY(-3px) rotate(0deg); }
+    75% { transform: translateY(-1px) rotate(-3deg); }
+    100% { transform: translateY(0) rotate(0deg); }
   }
 
   @keyframes catBlink {
@@ -300,6 +354,23 @@
   @keyframes pandaTail {
     0%, 100% { transform: rotate(0deg); }
     50% { transform: rotate(-10deg); }
+  }
+  
+  /* Animaciones para movimiento de mascotas */
+  @keyframes moveLeftRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(30px); }
+  }
+  
+  @keyframes floatUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    75% { transform: rotate(-2deg); }
   }
   
   /* Animaciones para mascotas pixelart */

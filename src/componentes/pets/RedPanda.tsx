@@ -3,10 +3,12 @@ import { cn } from '@/lib/utils';
 
 interface RedPandaProps extends React.SVGProps<SVGSVGElement> {
   isAnimating?: boolean;
+  isWalking?: boolean;
 }
 
 const RedPanda: React.FC<RedPandaProps> = ({ 
   isAnimating = true,
+  isWalking = false,
   className, 
   ...props 
 }) => {
@@ -14,6 +16,7 @@ const RedPanda: React.FC<RedPandaProps> = ({
     <div className={cn(
       'relative w-40 h-40 transition-all duration-300',
       isAnimating && 'hover:scale-110',
+      isWalking && isAnimating && 'animate-[pandaWalk_0.5s_ease-in-out_infinite]',
       className
     )}>
       <svg
@@ -89,14 +92,44 @@ const RedPanda: React.FC<RedPandaProps> = ({
         </g>
         
         {/* Patas */}
-        <rect x="5" y="13" width="2" height="2" fill="#8B4513" />
-        <rect x="9" y="13" width="2" height="2" fill="#8B4513" />
+        <rect x="5" y="13" width="2" height="2" fill="#8B4513" className={isWalking && isAnimating ? 'animate-[pixelBounce_0.5s_ease-in-out_infinite]' : ''} />
+        <rect x="9" y="13" width="2" height="2" fill="#8B4513" className={isWalking && isAnimating ? 'animate-[pixelBounce_0.5s_ease-in-out_infinite_0.25s]' : ''} />
       </svg>
     </div>
   );
 };
 
 export default RedPanda;
+
+// Añadir estos estilos en tu archivo global.css
+/*
+@keyframes pixelWag {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px) rotate(15deg); }
+}
+
+@keyframes pixelBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+
+@keyframes pixelShift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(1px); }
+}
+
+@keyframes pixelBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
+}
+
+@keyframes pandaWalk {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(2px) translateY(-1px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(2px) translateY(-1px); }
+}
+*/
 
 // Añadir estos estilos en tu archivo global.css
 /*

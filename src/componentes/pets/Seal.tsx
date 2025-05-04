@@ -3,10 +3,12 @@ import { cn } from '@/lib/utils';
 
 interface SealProps extends React.SVGProps<SVGSVGElement> {
   isAnimating?: boolean;
+  isWalking?: boolean;
 }
 
 const Seal: React.FC<SealProps> = ({ 
   isAnimating = true,
+  isWalking = false,
   className, 
   ...props 
 }) => {
@@ -14,6 +16,7 @@ const Seal: React.FC<SealProps> = ({
     <div className={cn(
       'relative w-40 h-40 transition-all duration-300',
       isAnimating && 'hover:scale-110',
+      isWalking && isAnimating && 'animate-[sealWalk_0.6s_ease-in-out_infinite]',
       className
     )}>
       <svg
@@ -81,7 +84,7 @@ const Seal: React.FC<SealProps> = ({
         />
         
         {/* Cola */}
-        <rect x="7" y="13" width="2" height="1" fill="#A9A9A9" />
+        <rect x="7" y="13" width="2" height="1" fill="#A9A9A9" className={isWalking && isAnimating ? 'animate-[pixelBounce_0.6s_ease-in-out_infinite]' : ''} />
       </svg>
     </div>
   );
@@ -99,6 +102,13 @@ export default Seal;
 @keyframes pixelBlink {
   0%, 90%, 100% { opacity: 1; }
   95% { opacity: 0; }
+}
+
+@keyframes sealWalk {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(2px) translateY(-2px); }
+  50% { transform: translateX(4px) translateY(0); }
+  75% { transform: translateX(2px) translateY(-2px); }
 }
 
 @keyframes pixelShift {

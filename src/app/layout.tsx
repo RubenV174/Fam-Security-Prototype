@@ -11,7 +11,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'Fam Security',
-  description: 'Herramienta de evaluación y prevención de riesgos de violencia familiar impulsada por IA.',
+  description: 'Comprende mejor la dinámica familiar y toma medidas hacia un entorno más seguro y saludable.',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  }
 };
 
 export default function RootLayout({

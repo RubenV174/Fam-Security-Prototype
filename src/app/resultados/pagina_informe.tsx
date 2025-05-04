@@ -55,10 +55,16 @@ export default function ResultsPage() {
   useEffect(() => {
     setIsLoading(true);
     const storedResult = localStorage.getItem('riskAssessmentResult');
+    const storedAnswers = localStorage.getItem('testAnswers');
+    
     if (storedResult) {
       try {
         const parsedResult = JSON.parse(storedResult);
-        if (parsedResult && typeof parsedResult.report === 'string' && typeof parsedResult.resources === 'string') {
+        if (parsedResult && typeof parsedResult.report === 'string') {
+          // Si no hay resources, asignar un valor por defecto
+          if (parsedResult.resources === undefined) {
+            parsedResult.resources = 'No se sugieren recursos específicos para esta evaluación.';
+          }
           setResult(parsedResult);
           setError(null);
         } else {
@@ -71,12 +77,17 @@ export default function ResultsPage() {
       } finally {
         setIsLoading(false);
       }
+    } else if (storedAnswers) {
+      // Si tenemos respuestas pero no resultados, mostrar un mensaje diferente
+      setError("Se encontraron tus respuestas pero no se pudo generar el informe. Por favor, intenta nuevamente.");
+      setResult(null);
+      setIsLoading(false);
     } else {
       setError("No se encontraron resultados almacenados. Por favor, completa el test primero.");
       setResult(null);
       setIsLoading(false);
       const timer = setTimeout(() => {
-        if (!localStorage.getItem('riskAssessmentResult')) {
+        if (!localStorage.getItem('riskAssessmentResult') && !localStorage.getItem('testAnswers')) {
           router.push('/test');
         }
       }, 5000);
@@ -112,7 +123,11 @@ export default function ResultsPage() {
   }, [result]);
 
   const handleRetakeTest = () => {
+    // Limpiar todos los datos almacenados relacionados con el test
     localStorage.removeItem('riskAssessmentResult');
+    localStorage.removeItem('testAnswers');
+    
+    // Redirigir al usuario al test
     router.push('/test');
   };
 
